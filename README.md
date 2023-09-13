@@ -21,7 +21,7 @@ This is the starter for the Flask React project.
    `SCHEMA` with a unique name, **making sure you use the snake_case
    convention**.
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+6. Get into your pipenv, migrate your database, seed your database, and run your Flask app as backend
 
    ```bash
    pipenv shell
@@ -39,7 +39,7 @@ This is the starter for the Flask React project.
    flask run
    ```
 
-7. Cd inside the `react-app` directory, and run your React app
+7. Open a new terminal. cd into the `react-app` directory, and run your React app as frontend
    
    ```bash
    npm install
