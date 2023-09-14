@@ -1,6 +1,10 @@
-# Flask React Project
+# GamerCord
 
-This is the starter for the Flask React project.
+Welcome to GamerCord! Check out our live version here: 
+
+GamerCord is based off Discord, which allows users to chat inside the custom channels
+
+The backend of GamerCord is built using Python and Flask with a PostgreSQL database. The frontend is handled with React and Redux.
 
 ## Getting started
 1. Clone this repository (only this branch)
