@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 # join table
-users_servers = db.Table("user_servers",
+users_servers = db.Table("users_servers",
                        db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
                        db.Column("server_id", db.Integer, db.ForeignKey(add_prefix_for_prod('servers.id')), primary_key=True)
                        )
@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    vip = db.Column(db.Boolean, default=False)
+    vip = db.Column(db.Boolean, default=False, nullable=False)
     image = db.Column(db.String(255))
 
     @property
@@ -53,7 +53,7 @@ class User(db.Model, UserMixin):
     # 3. Reactions.userId
     reactions_user = db.relationship("Reaction", back_populates="user_reactions")
     #many-to-many
-    # 4. user_servers.userId
+    # 4. users_servers.userId
     servers = db.relationship("Server", secondary=users_servers, back_populates="users")
 
 
@@ -64,9 +64,9 @@ class Server(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(40), nullable=False)
     image = db.Column(db.String(255))
-    private = db.Column(db.Boolean, default=False)
+    private = db.Column(db.Boolean, default=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     def to_dict(self):
@@ -96,9 +96,9 @@ class Channel(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(40), nullable=False)
     server_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('servers.id')), nullable=False)
-    private = db.Column(db.Boolean, default=False)
+    private = db.Column(db.Boolean, default=False, nullable=False)
 
     def to_dict(self):
         return {
