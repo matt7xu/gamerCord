@@ -23,3 +23,10 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def user(id):
+    user = User.query.get(id)
+    user.vip = not user.vip
+    return user.to_dict()
