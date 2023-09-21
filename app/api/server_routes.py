@@ -53,7 +53,7 @@ def serversOwned():
 
 
 # Create a New Server
-@server_routes.route('/', methods=['POST'])
+@server_routes.route('/new', methods=['POST'])
 # @login_required
 def createServer():
     form = ServerForm()

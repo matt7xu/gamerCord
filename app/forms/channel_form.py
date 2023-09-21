@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 class ChannelForm(FlaskForm):
     name = StringField('Name of the server', validators=[DataRequired()])
-    private = RadioField('Private', validators=[DataRequired()])
+    private = RadioField('Private', coerce=bool, choices=[(True, 'True'), (False, 'False')])
     submit = SubmitField("Create Channel")
