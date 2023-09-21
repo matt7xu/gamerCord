@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Message
 from flask_login import current_user, login_required
-from sqlalchemy import and_
 
 message_routes = Blueprint('messages', __name__)
 
@@ -47,7 +46,7 @@ def messageDetails(id):
 def createMessage(id):
     current_user_id = current_user.get_id()
     new_content = request.json['content']
-    
+
     new = Message(
         content=new_content,
         user_id=current_user_id,
