@@ -47,7 +47,6 @@ def serverDetails(id):
 @server_routes.route('/owned', methods=["GET"])
 def serversOwned():
     current_user_id = current_user.get_id()
-    print('ooooooo', current_user_id)
     owned = Server.query.filter(Server.user_id == current_user_id)
     return jsonify({'Servers': [each.to_dict() for each in owned]})
 
