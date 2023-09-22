@@ -82,14 +82,14 @@ export const addServerThunk = (newServer) => async (dispatch) => {
   }
 };
 
-export const editServerThunk = (id, updateAlbum) => async (dispatch) => {
+export const editServerThunk = (id, updateChannel) => async (dispatch) => {
 
   const res = await fetch(`/api/servers/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: updateAlbum
+    body: updateChannel
   });
 
   if (res.ok) {
@@ -99,7 +99,7 @@ export const editServerThunk = (id, updateAlbum) => async (dispatch) => {
   }
 };
 
-export const deletServerAThunk = (id) => async (dispatch) => {
+export const deleteServerThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/servers/${id}`, {
     method: "DELETE",
   });
@@ -114,7 +114,7 @@ const initialState = {};
 const serverReducer = (state = initialState, action) => {
   let newState = { ...state }
   switch (action.type) {
-      case LOAD_ALL_SERVER:
+    case LOAD_ALL_SERVER:
       action.payload.servers.forEach((ea) => {
         newState[ea.id] = ea;
       });
