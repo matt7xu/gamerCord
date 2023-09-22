@@ -39,7 +39,7 @@ export const updateUserVIPThunk = (id) => async (dispatch) => {
 
 const initialState = {};
 
-export default function reducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   let newState = { ...state }
 	switch (action.type) {
     case LOAD_USER_BY_ID:
