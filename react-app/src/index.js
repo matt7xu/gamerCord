@@ -8,6 +8,9 @@ import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import * as userActions from "./store/user";
 import * as serverActions from "./store/server";
+import * as channelActions from "./store/channel";
+import * as messageActions from "./store/message";
+import * as reactionActions from "./store/reaction";
 import App from "./App";
 
 import "./index.css";
@@ -19,6 +22,9 @@ if (process.env.NODE_ENV !== "production") {
 	window.sessionActions = sessionActions;
 	window.userActions = userActions;
 	window.serverActions = serverActions;
+	window.channelActions = channelActions;
+	window.messageActions = messageActions;
+	window.reactionActions = reactionActions;
 }
 
 // Wrap the application with the Modal provider and render the Modal component
