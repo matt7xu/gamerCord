@@ -2,7 +2,7 @@ const LOAD_USER_BY_ID = "albums/loadSpotById";
 const UPDATE_VIP = "users/UPDATE_VIP"
 
 export const loadUserById = (user) => ({
-  type: LOAD_ALBUM_BY_ID,
+  type: LOAD_USER_BY_ID,
   payload: user
 });
 

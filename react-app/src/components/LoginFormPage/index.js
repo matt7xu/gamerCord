@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormPage() {
@@ -23,7 +24,8 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1>Welcome back!</h1>
+      <h2>We're so Excited to see you again!</h2>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -31,7 +33,7 @@ function LoginFormPage() {
           ))}
         </ul>
         <label>
-          Email
+          EMAIL
           <input
             type="text"
             value={email}
@@ -40,7 +42,7 @@ function LoginFormPage() {
           />
         </label>
         <label>
-          Password
+          PASSWORD
           <input
             type="password"
             value={password}
@@ -49,6 +51,10 @@ function LoginFormPage() {
           />
         </label>
         <button type="submit">Log In</button>
+        <div>
+        <h3>Need an account?</h3>
+        <NavLink exact to="/signup">Register</NavLink>
+        </div>
       </form>
     </>
   );
