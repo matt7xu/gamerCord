@@ -33,7 +33,7 @@ function LoginFormModal() {
     e.preventDefault();
     dispatch(sessionActions.login("PeterGriffin@aa.io", "password"))
     closeModal()
-    history.push("/servers/@me");
+    // history.push("/servers/@me");
   }
 
   return (

@@ -49,9 +49,9 @@ export const loadAllServerThunk = () => async (dispatch) => {
 export const loadServerOwnedThunk = () => async (dispatch) => {
   const res = await fetch("/api/servers/owned");
   if (res.ok) {
-    const loadAllServer = await res.json();
-    dispatch(loadServerOwned(loadAllServer));
-    return loadAllServer;
+    const load_All_Server = await res.json();
+    dispatch(loadServerOwned(load_All_Server));
+    return load_All_Server;
   }
 };
 
@@ -120,7 +120,7 @@ const serverReducer = (state = initialState, action) => {
       });
       return newState;
     case LOAD_SERVER_OWNED:
-      action.payload.servers.forEach((ea) => {
+      action.payload.Servers.forEach((ea) => {
         newState[ea.id] = ea;
       });
       return newState;

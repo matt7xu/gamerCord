@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import * as userActions from "../../store/user.js";
 import * as serverActions from "../../store/server";
+import { useDispatch, useSelector } from "react-redux";
 import noPicture from "./No_image.png";
-import "./Server.css";
 
-const Servers = () => {
+const AllServers = () => {
   const dispatch = useDispatch();
   const allServers = useSelector(state => Object.values(state.server));
-  const current_user = useSelector(state => Object.values(state.session));
 
   useEffect(() => {
-    dispatch(serverActions.loadServerOwnedThunk());
+    dispatch(serverActions.loadAllServerThunk());
   }, [dispatch]);
 
   const checkImage = (urlString) => {
@@ -28,13 +24,13 @@ const Servers = () => {
     if (checkImage(server.image)) {
       return (
         <div>
-          <img className="server_image" src={noPicture} alt="noImage"></img>
+          <img src={noPicture} alt="noImage"></img>
         </div>
       )
     } else {
       return (
         <div>
-          <img className="server_image" src={server.image} alt="serverImage"></img>
+          <img src={server.image} alt="serverImage"></img>
         </div>
       )
     }
@@ -42,18 +38,17 @@ const Servers = () => {
 
   return (
     <div>
+      <h1>Find your community on gamerCord</h1>
+      <h3>From gaming, to game music, there's a place for you</h3>
+      <h2>Featured communities</h2>
       {allServers.map((server) => (
-        <Link key={server.id} to={`/servers/${server.id}`}>
+        <div>
           {handleEachServer(server)}
-        </Link>
+          <div>{server.name}</div>
+        </div>
       ))}
-      <div>
-        <Link to={`/guild-discovery`}>
-          <i className="fas fa-compass fa-3x"></i>
-        </Link>
-      </div>
     </div>
   )
 };
 
-export default Servers;
+export default AllServers;

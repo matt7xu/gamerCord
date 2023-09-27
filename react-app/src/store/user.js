@@ -1,7 +1,7 @@
 const LOAD_USER_BY_ID = "albums/loadSpotById";
 const UPDATE_VIP = "users/UPDATE_VIP"
 
-export const loadUserById = (user) => ({
+const loadUserById = (user) => ({
   type: LOAD_USER_BY_ID,
   payload: user
 });
@@ -22,7 +22,7 @@ export const loadUserByIdThunk = (id) => async (dispatch) => {
 }
 
 export const updateUserVIPThunk = (id) => async (dispatch) => {
-  const res = await fetch(`/api/users${id}`, {
+  const res = await fetch(`/api/users/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

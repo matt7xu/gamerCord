@@ -5,6 +5,7 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import UserVIPModal from "../UserVIPModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -50,6 +51,11 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
+            <OpenModalButton
+              buttonText="Shop"
+              onItemClick={closeMenu}
+              modalComponent={<UserVIPModal />}
+            />
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>

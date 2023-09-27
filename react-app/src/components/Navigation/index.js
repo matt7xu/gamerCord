@@ -34,13 +34,6 @@ function Navigation({ isLoaded }) {
 			</li>
 			{isLoaded && (
 				<>
-					{/* <li>
-						<OpenModalButton
-							buttonText="Log In"
-							onItemClick={closeMenu}
-							modalComponent={<LoginFormModal />}
-						/>
-					</li> */}
 					<li>
 						<ProfileButton user={sessionUser} />
 					</li>
