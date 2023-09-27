@@ -3,3 +3,35 @@
   height: 50px;
   border-radius: 50px;
 }
+
+.server_left {
+  float: left;
+}
+
+.server_card_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+  /* gap: 10px; */
+}
+
+.server_card_img {
+  max-width: 100%;
+  /* margin: 20px; */
+  height: 70%;
+  border-radius: 10px;
+}
+
+.server_card_text {
+  height: 50%;
+  margin-left: 50px;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+.server_card_server {
+  margin-top: -50px;
+  margin-right: 50px;
+  margin-left: 50px;
+}

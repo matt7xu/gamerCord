@@ -41,7 +41,7 @@ const Servers = () => {
   }
 
   return (
-    <div>
+    <div className="server_left">
       {allServers.map((server) => (
         <Link key={server.id} to={`/servers/${server.id}`}>
           {handleEachServer(server)}

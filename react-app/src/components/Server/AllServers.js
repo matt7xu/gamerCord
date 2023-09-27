@@ -23,26 +23,24 @@ const AllServers = () => {
   const handleEachServer = (server) => {
     if (checkImage(server.image)) {
       return (
-        <div>
-          <img src={noPicture} alt="noImage"></img>
-        </div>
+          <img className="server_card_img" src={noPicture} alt="noImage"></img>
       )
     } else {
       return (
-        <div>
-          <img src={server.image} alt="serverImage"></img>
-        </div>
+          <img className="server_card_img" src={server.image} alt="serverImage"></img>
       )
     }
   }
 
   return (
-    <div>
-      <h1>Find your community on gamerCord</h1>
-      <h3>From gaming, to game music, there's a place for you</h3>
-      <h2>Featured communities</h2>
+    <div className="server_card_grid">
+      <div className="server_card_text">
+        <h1>Find your community on gamerCord</h1>
+        <h3>From gaming, to game background music, there's a place for you</h3>
+        <h2>Featured communities</h2>
+      </div>
       {allServers.map((server) => (
-        <div>
+        <div className="server_card_server">
           {handleEachServer(server)}
           <div>{server.name}</div>
         </div>

@@ -12,34 +12,32 @@ function Navigation({ isLoaded }) {
 	const ulRef = useRef();
 
 	useEffect(() => {
-    if (!showMenu) return;
+		if (!showMenu) return;
 
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
+		const closeMenu = (e) => {
+			if (!ulRef.current.contains(e.target)) {
+				setShowMenu(false);
+			}
+		};
 
-    document.addEventListener("click", closeMenu);
+		document.addEventListener("click", closeMenu);
 
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+		return () => document.removeEventListener("click", closeMenu);
+	}, [showMenu]);
 
 	const sessionUser = useSelector(state => state.session.user);
-  const closeMenu = () => setShowMenu(false);
+	const closeMenu = () => setShowMenu(false);
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/"><img src={logoPicture} alt="logo"></img></NavLink>
-			</li>
+		<div className="menu-top">
+			<div className="image_top">
+				<NavLink exact to="/"><img className="image_top_image" src={logoPicture} alt="logo"></img></NavLink>
+			</div>
 			{isLoaded && (
-				<>
-					<li>
-						<ProfileButton user={sessionUser} />
-					</li>
-				</>
+				<div className="menu_top">
+					<ProfileButton user={sessionUser} />
+				</div>
 			)}
-		</ul>
+		</div>
 	);
 }
 

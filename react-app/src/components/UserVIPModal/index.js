@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom';
 import * as userActions from "../../store/user.js";
 import vipPicture from "./vip.png";
+import './UserVIPModal.css';
 
 const UserVIPModal = () => {
   const history = useHistory();
@@ -27,7 +28,7 @@ return (
       <img src={vipPicture} alt="vip"></img>
     </div>
     <div>
-      <button onClick={handleClick} type="submit">JOIN NOW</button>
+      <button className="joinVIPbutton" onClick={handleClick} type="submit">JOIN NOW</button>
     </div>
   </div>
 );
