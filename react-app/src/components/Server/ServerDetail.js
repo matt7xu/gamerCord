@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import * as serverActions from "../../store/server";
 import { useDispatch, useSelector } from "react-redux";
+import ServerSettingButton from './ServerSettingButton';
 
 const ServerDetail = () => {
   const dispatch = useDispatch();
@@ -10,13 +11,18 @@ const ServerDetail = () => {
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
-  }, [dispatch, serverId]);
+  }, [dispatch]);
 
   const currentAlbum = allServers[serverId.id];
+  const serverId_string = serverId.id.toString()
 
   return (
     <div>
-      <div>{console.log('$$$$$$$$',currentAlbum)}</div>
+      <div>
+        {currentAlbum?.name}
+        <ServerSettingButton serverId={serverId_string} server_info={currentAlbum} />
+      </div>
+
     </div>
   )
 };

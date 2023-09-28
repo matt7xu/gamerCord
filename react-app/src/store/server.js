@@ -82,14 +82,14 @@ export const addServerThunk = (newServer) => async (dispatch) => {
   }
 };
 
-export const editServerThunk = (id, updateChannel) => async (dispatch) => {
+export const editServerThunk = (id, updatedServer) => async (dispatch) => {
 
   const res = await fetch(`/api/servers/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: updateChannel
+    body: updatedServer
   });
 
   if (res.ok) {
