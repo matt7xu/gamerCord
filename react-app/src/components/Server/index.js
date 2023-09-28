@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import * as userActions from "../../store/user.js";
 import * as serverActions from "../../store/server";
 import noPicture from "./No_image.png";
+import OpenModalButton from "../OpenModalButton";
+import CreateServerModal from "./CreateServerModal";
 import "./Server.css";
 
 const Servers = () => {
   const dispatch = useDispatch();
   const allServers = useSelector(state => Object.values(state.server));
   const current_user = useSelector(state => Object.values(state.session));
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     dispatch(serverActions.loadServerOwnedThunk());
   }, [dispatch]);
+
+  const closeMenu = () => setShowMenu(false);
 
   const checkImage = (urlString) => {
     const endings = ["png", "jpg", "jpeg"];
@@ -40,6 +44,12 @@ const Servers = () => {
     }
   }
 
+  const create_server_logo = () => {
+    return (
+      <i className="fas fa-plus fa-3x add_server_icon"></i>
+    )
+  }
+
   return (
     <div className="server_left">
       {allServers.map((server) => (
@@ -47,6 +57,13 @@ const Servers = () => {
           {handleEachServer(server)}
         </Link>
       ))}
+      <div>
+        <OpenModalButton
+          buttonText={create_server_logo()}
+          onItemClick={closeMenu}
+          modalComponent={<CreateServerModal />}
+        />
+      </div>
       <div>
         <Link to={`/guild-discovery`}>
           <i className="fas fa-compass fa-3x"></i>

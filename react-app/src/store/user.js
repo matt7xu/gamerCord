@@ -1,5 +1,5 @@
 const LOAD_USER_BY_ID = "albums/loadSpotById";
-const UPDATE_VIP = "users/UPDATE_VIP"
+const UPDATE_VIP = "users/UPDATE_VIP";
 
 const loadUserById = (user) => ({
   type: LOAD_USER_BY_ID,
@@ -40,7 +40,7 @@ export const updateUserVIPThunk = (id) => async (dispatch) => {
 const initialState = {};
 
 export default function userReducer(state = initialState, action) {
-  let newState = { ...state }
+  let newState = {}
 	switch (action.type) {
     case LOAD_USER_BY_ID:
       newState[action.payload.id] = action.payload;

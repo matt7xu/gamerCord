@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom';
-import * as userActions from "../../store/user.js";
+import * as sessionActions from "../../store/session.js";
 import vipPicture from "./vip.png";
 import './UserVIPModal.css';
 
@@ -15,10 +15,10 @@ const UserVIPModal = () => {
 
   const handleClick = async (e) => {
   e.preventDefault();
-  const data = await dispatch(userActions.updateUserVIPThunk(current_user[0].id));
+  const data = await dispatch(sessionActions.updateUserVIPThunk(current_user[0].id));
     if (data) {
       closeModal();
-      history.push("/servers/@me");
+      history.push("/");
     }
   }
 

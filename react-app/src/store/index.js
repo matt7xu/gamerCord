@@ -1,14 +1,16 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session';
-import serverReducer from './server'
-import channelReducer from './channel'
-import messageReducer from './message'
-import reactionReducer from './reaction'
+import serverReducer from './server';
+import channelReducer from './channel';
+import messageReducer from './message';
+import reactionReducer from './reaction';
+// import userReducer from './user'
 
 
 const rootReducer = combineReducers({
   session,
+  // user: userReducer,
   server: serverReducer,
   channel: channelReducer,
   message: messageReducer,

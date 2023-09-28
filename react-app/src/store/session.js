@@ -1,7 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-
+const UPDATE_VIP = "users/UPDATE_VIP";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -10,6 +10,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
 	type: REMOVE_USER,
+});
+
+const updateUserVIP = (user) => ({
+	type: UPDATE_VIP,
+  payload: user
 });
 
 
@@ -96,12 +101,30 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+export const updateUserVIPThunk = (id) => async (dispatch) => {
+  const res = await fetch(`/api/users/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: {}
+  });
+
+  if (res.ok) {
+    const current_user = await res.json();
+    dispatch(updateUserVIP(current_user));
+    return current_user;
+  }
+};
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case UPDATE_VIP:
+			return { user: action.payload };
 		default:
 			return state;
 	}

@@ -5,10 +5,10 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import Server from "./components/Server";
-import LandingPage from "./components/LandingPage";
 import Servers from "./components/Server";
+import LandingPage from "./components/LandingPage";
 import AllServers from "./components/Server/AllServers";
+import ServerDetail from "./components/Server/ServerDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,15 +22,12 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {sessionUser ? <Server /> : null}
+      {sessionUser ? <Servers /> : null}
       {isLoaded && (
         <Switch>
           <Route exact path="/" >
             {/* {sessionUser ? <Redirect to="/servers/@me" /> : <LandingPage />} */}
             {sessionUser ? null : <LandingPage />}
-          </Route>
-          <Route path="/servers/@me" >
-            <Servers />
           </Route>
           <Route path="/login" >
             <LoginFormPage />
@@ -40,6 +37,9 @@ function App() {
           </Route>
           <Route path="/guild-discovery">
             <AllServers />
+          </Route>
+          <Route path="/servers/:id">
+            <ServerDetail />
           </Route>
         </Switch>
       )}

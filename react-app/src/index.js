@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ModalProvider, Modal } from "./context/Modal";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
-import * as userActions from "./store/user";
+// import * as userActions from "./store/user";
 import * as serverActions from "./store/server";
 import * as channelActions from "./store/channel";
 import * as messageActions from "./store/message";
@@ -20,7 +20,7 @@ const store = configureStore();
 if (process.env.NODE_ENV !== "production") {
 	window.store = store;
 	window.sessionActions = sessionActions;
-	window.userActions = userActions;
+	// window.userActions = userActions;
 	window.serverActions = serverActions;
 	window.channelActions = channelActions;
 	window.messageActions = messageActions;
