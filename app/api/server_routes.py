@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db, Server
+from app.models import User, db, Server, users_servers
 from app.forms import ServerForm
 from flask_login import current_user, login_required
-# from sqlalchemy import and_
+from sqlalchemy import and_
 
 server_routes = Blueprint('servers', __name__)
 
@@ -110,3 +110,39 @@ def deleteServer(id):
     db.session.delete(server_Delete)
     db.session.commit()
     return {'message':  "Successfully deleted"}, 200
+
+# user join to an server
+@server_routes.route('/<int:serverId>/user/<int:userId>', methods=["POST"])
+# @login_required
+def userJoinServer(serverId, userId):
+    join_server = users_servers.insert().values(
+        user_id=userId, server_id=serverId
+    )
+    db.session.execute(join_server)
+    db.session.commit()
+
+    user = User.query.get(userId)
+    if user is None:
+        return {'errors': ["User couldn't be found"]}, 404
+
+    user_servers = user.servers
+
+    ret = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'vip': user.vip,
+            'image': user.image,
+            'servers': [each.to_dict() for each in user_servers]
+    }
+
+    return ret
+
+
+# user quit server
+@server_routes.route('/<int:serverId>/user/<int:userId>', methods=["DELETE"])
+# @login_required
+def userQuitServer(userId, serverId):
+    db.session.query(users_servers).filter(and_(users_servers.c.user_id == userId, users_servers.c.server_id == serverId)).delete()
+    db.session.commit()
+    return {'message':  "Successfully quitted"}, 200

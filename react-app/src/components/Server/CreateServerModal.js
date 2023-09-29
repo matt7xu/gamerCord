@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import * as serverActions from "../../store/server";
+import * as sessionActions from "../../store/session";
 
 function CreateServerModal() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { closeModal } = useModal();
   const [name, setName] = useState("");
   const [private_server, setPrivate_server] = useState(false);
   const [image, setImage] = useState("");
@@ -13,13 +16,19 @@ function CreateServerModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+
+    let formData = new FormData();
     formData.append("name", name);
     formData.append("private", private_server);
     formData.append("image", image);
-    
-    await dispatch(serverActions.addServerThunk(formData));
-    history.push("/");
+
+    const data = await dispatch(serverActions.addServerThunk(formData));
+    dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+
+    closeModal()
+    history.push("/guild-discovery");
+
+
 
   }
 
@@ -74,7 +83,6 @@ function CreateServerModal() {
               type="text"
               value={image}
               onChange={(e) => setImage(e.target.value)}
-              required
             />
           </label>
         </div>

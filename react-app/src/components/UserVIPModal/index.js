@@ -11,11 +11,11 @@ const UserVIPModal = () => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-  const current_user = useSelector(state => Object.values(state.session));
+  const current_user = useSelector(state => state.session);
 
   const handleClick = async (e) => {
   e.preventDefault();
-  const data = await dispatch(sessionActions.updateUserVIPThunk(current_user[0].id));
+  const data = await dispatch(sessionActions.updateUserVIPThunk(current_user.user.id));
     if (data) {
       closeModal();
       history.push("/");

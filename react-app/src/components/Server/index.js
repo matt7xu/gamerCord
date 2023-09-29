@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as serverActions from "../../store/server";
+import * as sessionActions from "../../store/session";
 import noPicture from "./No_image.png";
 import OpenModalButton from "../OpenModalButton";
 import CreateServerModal from "./CreateServerModal";
 import "./Server.css";
 
-const Servers = () => {
+const Servers = ({userId}) => {
   const dispatch = useDispatch();
-  const allServers = useSelector(state => Object.values(state.server));
-  const current_user = useSelector(state => Object.values(state.session));
+  const allServers = useSelector(state => state.server);
+  const current_user = useSelector(state => state.session);
   const [showMenu, setShowMenu] = useState(false);
+  const user_servers = current_user.user.servers;
 
   useEffect(() => {
+    dispatch(sessionActions.loadUserByIdThunk(userId));
     dispatch(serverActions.loadServerOwnedThunk());
   }, [dispatch]);
 
@@ -52,7 +55,7 @@ const Servers = () => {
 
   return (
     <div className="server_left">
-      {allServers.map((server) => (
+      {user_servers?.map((server) => (
         <Link key={server.id} to={`/servers/${server.id}`}>
           {handleEachServer(server)}
         </Link>

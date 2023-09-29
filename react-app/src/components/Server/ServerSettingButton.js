@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import EditServerModal from "./EditServerModal";
 import DeleteServerModal from "./DeleteServerModal";
+import QuitServerModal from "./QuitServerModal";
+import * as sessionActions from "../../store/session";
 
-function ServerSettingButton({serverId, server_info}) {
+function ServerSettingButton({ serverId, server_info }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [showMenu, setShowMenu] = useState(false);
 
+  const current_user = useSelector(state => state.session);
   const ulRef = useRef();
+  const current_user_id = current_user.user.id;
 
   const openMenu = () => {
     if (showMenu) return;
@@ -36,16 +45,29 @@ function ServerSettingButton({serverId, server_info}) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <>
-          <OpenModalButton
-            buttonText="Edit Server"
-            onItemClick={closeMenu}
-            modalComponent={<EditServerModal serverId={serverId} server_info={server_info} />}
-          />
-          <OpenModalButton
-            buttonText="Delete Server"
-            onItemClick={closeMenu}
-            modalComponent={<DeleteServerModal serverId={serverId} />}
-          />
+          {current_user_id == server_info?.user_id ?
+            <>
+              <OpenModalButton
+                buttonText="Edit Server"
+                onItemClick={closeMenu}
+                modalComponent={<EditServerModal serverId={serverId} server_info={server_info} />}
+              />
+              <OpenModalButton
+                buttonText="Delete Server"
+                onItemClick={closeMenu}
+                modalComponent={<DeleteServerModal serverId={serverId} userId={current_user_id} />}
+              />
+            </>
+            :
+            <div>
+              <OpenModalButton
+                buttonText="Quit Server"
+                onItemClick={closeMenu}
+                modalComponent={<QuitServerModal serverId={serverId} userId={current_user_id} />}
+              />
+            </div>
+          }
+
         </>
       </ul>
     </>

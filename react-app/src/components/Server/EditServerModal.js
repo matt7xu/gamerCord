@@ -22,7 +22,7 @@ function EditServerModal({ serverId, server_info }) {
 
     await dispatch(serverActions.editServerThunk(serverId, updatedServer));
     closeModal()
-    history.push("/");
+    // history.push(`/{serverId}`);
   };
 
   return (
@@ -73,7 +73,6 @@ function EditServerModal({ serverId, server_info }) {
               type="text"
               value={image}
               onChange={(e) => setImage(e.target.value)}
-              required
             />
           </label>
         </div>

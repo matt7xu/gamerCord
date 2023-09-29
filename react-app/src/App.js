@@ -18,11 +18,12 @@ function App() {
   }, [dispatch]);
 
   const sessionUser = useSelector(state => state.session.user);
+  const userId = sessionUser?.id.toString()
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {sessionUser ? <Servers /> : null}
+      {sessionUser ? <Servers userId={userId} /> : null}
       {isLoaded && (
         <Switch>
           <Route exact path="/" >

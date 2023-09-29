@@ -6,23 +6,21 @@ import ServerSettingButton from './ServerSettingButton';
 
 const ServerDetail = () => {
   const dispatch = useDispatch();
-  const  serverId  = useParams();
-  const allServers = useSelector(state => Object.values(state.server));
+  let serverId = useParams();
+  serverId = serverId.id
+  const alltServers = useSelector(state =>state.server);
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
   }, [dispatch]);
 
-  const currentAlbum = allServers[serverId.id];
-  const serverId_string = serverId.id.toString()
 
   return (
     <div>
       <div>
-        {currentAlbum?.name}
-        <ServerSettingButton serverId={serverId_string} server_info={currentAlbum} />
+        {alltServers[serverId]?.name}
+        <ServerSettingButton serverId={serverId} server_info={alltServers[serverId]} />
       </div>
-
     </div>
   )
 };

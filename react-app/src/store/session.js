@@ -2,6 +2,9 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const UPDATE_VIP = "users/UPDATE_VIP";
+const LOAD_USER_BY_ID = "albums/loadSpotById";
+const USER_JOIN_SERVER = "servers/userJoinServer";
+const USER_QUIT_SERVER = "servers/userQuitServer";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -14,7 +17,22 @@ const removeUser = () => ({
 
 const updateUserVIP = (user) => ({
 	type: UPDATE_VIP,
-  payload: user
+	payload: user
+});
+
+const loadUserById = (user) => ({
+	type: LOAD_USER_BY_ID,
+	payload: user
+});
+
+export const userJoinServer = (server) => ({
+  type: USER_JOIN_SERVER,
+  payload: server
+});
+
+export const userQuitServer = (serverId, userId) => ({
+  type: USER_QUIT_SERVER,
+  payload: [userId, serverId]
 });
 
 
@@ -102,8 +120,35 @@ export const signUp = (username, email, password) => async (dispatch) => {
 };
 
 export const updateUserVIPThunk = (id) => async (dispatch) => {
-  const res = await fetch(`/api/users/${id}`, {
-    method: "PUT",
+	const res = await fetch(`/api/users/${id}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: {}
+	});
+
+	if (res.ok) {
+		const current_user = await res.json();
+		dispatch(updateUserVIP(current_user));
+		return current_user;
+	}
+};
+
+export const loadUserByIdThunk = (id) => async (dispatch) => {
+	const res = await fetch(`/api/users/${id}`);
+
+	if (res.ok) {
+		const current_user = await res.json();
+		dispatch(loadUserById(current_user));
+		return current_user;
+	}
+}
+
+export const userJoinServerThunk = (serverId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${serverId}/user/${userId}`,
+  {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -111,11 +156,34 @@ export const updateUserVIPThunk = (id) => async (dispatch) => {
   });
 
   if (res.ok) {
-    const current_user = await res.json();
-    dispatch(updateUserVIP(current_user));
-    return current_user;
+    const ret = await res.json();
+    dispatch(userJoinServer(ret));
+    return ret;
   }
 };
+
+export const userQuitServerThunk = (serverId, userId) => async (dispatch) => {
+  const res = await fetch(`/api/servers/${serverId}/user/${userId}`, {
+    method: "DELETE"
+  });
+
+  if (res.ok) {
+    dispatch(userQuitServer(serverId, userId));
+  }
+};
+
+const helperFunDelete = (state, action, userId, serverId) => {
+  let servers = state.user.servers
+  let currentId = 0;
+  for (let i = 0; i < servers.length; i++) {
+    if (servers[i].id == serverId) {
+      currentId = i;
+      break;
+    }
+  }
+  delete state.user.servers[currentId.toString()]
+  return state
+}
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
@@ -125,6 +193,13 @@ export default function reducer(state = initialState, action) {
 			return { user: null };
 		case UPDATE_VIP:
 			return { user: action.payload };
+		case LOAD_USER_BY_ID:
+			return { user: action.payload };
+		case USER_JOIN_SERVER:
+			return { user: action.payload };
+		case USER_QUIT_SERVER:
+			let newState = { ...state }
+			return helperFunDelete(newState, action, action.payload[0], action.payload[1])
 		default:
 			return state;
 	}
