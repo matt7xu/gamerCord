@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as serverActions from "../../store/server";
@@ -12,7 +12,7 @@ function CreateServerModal() {
   const [name, setName] = useState("");
   const [private_server, setPrivate_server] = useState(false);
   const [image, setImage] = useState("");
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,11 +42,11 @@ function CreateServerModal() {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <ul>
+        {/* <ul>
           {errors.length > 0 && errors.map(el => (
             <div key={el} className="errors">{el}</div>
           ))}
-        </ul>
+        </ul> */}
         <div>
           <label>
             Name

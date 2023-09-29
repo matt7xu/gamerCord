@@ -10,7 +10,7 @@ import "./Server.css";
 
 const Servers = ({userId}) => {
   const dispatch = useDispatch();
-  const allServers = useSelector(state => state.server);
+  // const allServers = useSelector(state => state.server);
   const current_user = useSelector(state => state.session);
   const [showMenu, setShowMenu] = useState(false);
   const user_servers = current_user.user.servers;

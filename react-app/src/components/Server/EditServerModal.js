@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import * as serverActions from "../../store/server";
 
 function EditServerModal({ serverId, server_info }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const [name, setName] = useState(server_info.name);
   const [private_server, setPrivate_server] = useState(server_info.private);
   const [image, setImage] = useState(server_info.image);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -32,11 +32,11 @@ function EditServerModal({ serverId, server_info }) {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <ul>
+        {/* <ul>
           {errors.length > 0 && errors.map(el => (
             <div key={el} className="errors">{el}</div>
           ))}
-        </ul>
+        </ul> */}
         <div>
           <label>
             Name
