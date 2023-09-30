@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from "../../store/server";
 import * as sessionActions from "../../store/session";
 import noPicture from "./No_image.png";
+import "./Server.css";
 
 const AllServers = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const allServers = useSelector(state => state.server);
   const current_user = useSelector(state => state.session);
-  const current_user_id = current_user.user.id;
 
 
   useEffect(() => {
@@ -39,15 +39,15 @@ const AllServers = () => {
   }
 
   const joinServer = (e, serverId) => {
-    const userId = current_user_id
+    const userId = current_user?.user?.id
     dispatch(sessionActions.userJoinServerThunk(serverId, userId));
-    history.push("/");
+    history.push(`/servers/${serverId}`);
   }
 
   const checkServerJoinedOrNot = (serverId) => {
-    let user_servers = current_user.user.servers
-    for (let i = 0; i < user_servers.length; i++) {
-      if (user_servers[i].id == serverId) {
+    let user_servers = current_user.user?.servers
+    for (let i = 0; i < user_servers?.length; i++) {
+      if (user_servers[i]?.id == serverId) {
         return true;
       }
     }
@@ -69,7 +69,9 @@ const AllServers = () => {
             ?
             <div>Server Joined</div>
             :
-            <button onClick={e => joinServer(e, server?.id)}>Join Server</button>
+            <div>
+              <button  onClick={e => joinServer(e, server?.id)}>Join Server</button>
+            </div>
           }
         </div>
       ))}

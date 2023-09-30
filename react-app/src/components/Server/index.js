@@ -8,7 +8,7 @@ import OpenModalButton from "../OpenModalButton";
 import CreateServerModal from "./CreateServerModal";
 import "./Server.css";
 
-const Servers = ({userId}) => {
+const Servers = ({ userId }) => {
   const dispatch = useDispatch();
   // const allServers = useSelector(state => state.server);
   const current_user = useSelector(state => state.session);
@@ -49,7 +49,9 @@ const Servers = ({userId}) => {
 
   const create_server_logo = () => {
     return (
-      <i className="fas fa-plus fa-3x add_server_icon"></i>
+      <div className="add_server_icon_div">
+        <i className="fas fa-plus fa-3x add_server_icon"></i>
+      </div>
     )
   }
 
@@ -69,7 +71,7 @@ const Servers = ({userId}) => {
       </div>
       <div>
         <Link to={`/guild-discovery`}>
-          <i className="fas fa-compass fa-3x"></i>
+          <i className="fas fa-compass fa-3x all_server_icon"></i>
         </Link>
       </div>
     </div>

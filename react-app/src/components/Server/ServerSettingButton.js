@@ -6,6 +6,7 @@ import EditServerModal from "./EditServerModal";
 import DeleteServerModal from "./DeleteServerModal";
 import QuitServerModal from "./QuitServerModal";
 // import * as sessionActions from "../../store/session";
+import "./Server.css";
 
 function ServerSettingButton({ serverId, server_info }) {
   // const dispatch = useDispatch();
@@ -15,7 +16,6 @@ function ServerSettingButton({ serverId, server_info }) {
 
   const current_user = useSelector(state => state.session);
   const ulRef = useRef();
-  const current_user_id = current_user.user.id;
 
   const openMenu = () => {
     if (showMenu) return;
@@ -45,8 +45,8 @@ function ServerSettingButton({ serverId, server_info }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <>
-          {current_user_id == server_info?.user_id ?
-            <>
+          {current_user?.user?.id == server_info?.user_id ?
+            <div className="editServerButton">
               <OpenModalButton
                 buttonText="Edit Server"
                 onItemClick={closeMenu}
@@ -55,15 +55,15 @@ function ServerSettingButton({ serverId, server_info }) {
               <OpenModalButton
                 buttonText="Delete Server"
                 onItemClick={closeMenu}
-                modalComponent={<DeleteServerModal serverId={serverId} userId={current_user_id} />}
+                modalComponent={<DeleteServerModal serverId={serverId} userId={current_user?.user?.id} />}
               />
-            </>
+            </div>
             :
-            <div>
+            <div className="quitServerButton">
               <OpenModalButton
                 buttonText="Quit Server"
                 onItemClick={closeMenu}
-                modalComponent={<QuitServerModal serverId={serverId} userId={current_user_id} />}
+                modalComponent={<QuitServerModal serverId={serverId} userId={current_user?.user?.id} />}
               />
             </div>
           }

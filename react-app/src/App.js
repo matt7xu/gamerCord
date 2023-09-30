@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
@@ -9,6 +9,8 @@ import Servers from "./components/Server";
 import LandingPage from "./components/LandingPage";
 import AllServers from "./components/Server/AllServers";
 import ServerDetail from "./components/Server/ServerDetail";
+import homePicture from "./home.png";
+import "./index.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +29,11 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" >
-            {/* {sessionUser ? <Redirect to="/servers/@me" /> : <LandingPage />} */}
-            {sessionUser ? null : <LandingPage />}
+            {sessionUser ?
+              <div className="home_image_cont">
+                <img className="home_image" src={homePicture} alt="homeImage"></img>
+              </div>
+              : <LandingPage />}
           </Route>
           <Route path="/login" >
             <LoginFormPage />
