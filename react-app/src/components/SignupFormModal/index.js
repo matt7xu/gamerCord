@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -11,6 +13,7 @@ function SignupFormModal() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
+	const [showMenu, setShowMenu] = useState(false);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
@@ -29,9 +32,11 @@ function SignupFormModal() {
 		}
 	};
 
+	const closeMenu = () => setShowMenu(false);
+
 	return (
 		<>
-			<h1>Sign Up</h1>
+			<h1>Create an account</h1>
 			<form onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
@@ -39,7 +44,7 @@ function SignupFormModal() {
 					))}
 				</ul>
 				<label>
-					Email
+					EMAIL
 					<input
 						type="text"
 						value={email}
@@ -48,7 +53,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Username
+					USERNAME
 					<input
 						type="text"
 						value={username}
@@ -57,7 +62,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Password
+					PASSWORD
 					<input
 						type="password"
 						value={password}
@@ -66,7 +71,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Confirm Password
+					CONFIRM PASSWORD
 					<input
 						type="password"
 						value={confirmPassword}
@@ -74,7 +79,16 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				<button type="submit">Sign Up</button>
+				<button type="submit">Continue</button>
+				<div>By registering, you agree to GamerCord's Terms of Service and Privacy Policy.</div>
+				<div>
+				  <OpenModalButton
+              buttonText="Already have an account"
+              onItemClick={closeMenu}
+              modalComponent={<LoginFormModal />}
+							/>
+				</div>
+
 			</form>
 		</>
 	);

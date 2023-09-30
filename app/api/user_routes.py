@@ -22,7 +22,16 @@ def user(id):
     Query for a user by id and returns that user in a dictionary
     """
     user = User.query.get(id)
-    return user.to_dict()
+    user_servers = user.servers
+    ret= {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'vip': user.vip,
+            'image': user.image,
+            'servers': [each.to_dict() for each in user_servers]
+    }
+    return ret
 
 
 # update vip

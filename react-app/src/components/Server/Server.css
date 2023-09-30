@@ -1,0 +1,65 @@
+.server_image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.server_left {
+  float: left;
+  margin-left: 10px;
+}
+
+.server_card_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+  /* gap: 10px; */
+}
+
+.server_card_img {
+  max-width: 100%;
+  /* margin: 20px; */
+  height: 70%;
+  border-radius: 10px;
+}
+
+.server_card_text {
+  height: 50%;
+  margin-left: 50px;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+.server_card_server {
+  margin-top: -50px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.quitServerButton {
+  margin-left: 80px;
+}
+
+.editServerButton {
+  margin-left: 20px;
+}
+
+.add_server_icon {
+  color: rgb(35, 33, 33);
+}
+
+.all_server_icon {
+  margin-top: 5px;
+  margin-left: 1px;
+  border: 0.05em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+}
+
+.all_server_icon:hover {
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.server_name_cont {
+  margin-left: 9%;
+}

@@ -5,6 +5,7 @@ const ADD_SERVER = "servers/addServer";
 const EDIT_SERVER = "servers/editServer";
 const DELETE_SERVER = "servers/deleteServer";
 
+
 export const loadAllServer = (servers) => ({
   type: LOAD_ALL_SERVER,
   payload: servers
@@ -49,9 +50,9 @@ export const loadAllServerThunk = () => async (dispatch) => {
 export const loadServerOwnedThunk = () => async (dispatch) => {
   const res = await fetch("/api/servers/owned");
   if (res.ok) {
-    const loadAllServer = await res.json();
-    dispatch(loadServerOwned(loadAllServer));
-    return loadAllServer;
+    const load_All_Server = await res.json();
+    dispatch(loadServerOwned(load_All_Server));
+    return load_All_Server;
   }
 };
 
@@ -65,14 +66,10 @@ export const loadServerByIdThunk = (id) => async (dispatch) => {
   }
 }
 
-export const addServerThunk = (newServer) => async (dispatch) => {
-
-  const res = await fetch("/api/servers/", {
+export const addServerThunk = (server) => async (dispatch) => {
+  const res = await fetch("/api/servers/new", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: newServer
+    body: server
   });
 
   if (res.ok) {
@@ -82,14 +79,10 @@ export const addServerThunk = (newServer) => async (dispatch) => {
   }
 };
 
-export const editServerThunk = (id, updateChannel) => async (dispatch) => {
-
+export const editServerThunk = (id, updatedServer) => async (dispatch) => {
   const res = await fetch(`/api/servers/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: updateChannel
+    body: updatedServer
   });
 
   if (res.ok) {
@@ -109,6 +102,9 @@ export const deleteServerThunk = (id) => async (dispatch) => {
   }
 };
 
+
+
+//Reducer
 const initialState = {};
 
 const serverReducer = (state = initialState, action) => {
@@ -120,7 +116,7 @@ const serverReducer = (state = initialState, action) => {
       });
       return newState;
     case LOAD_SERVER_OWNED:
-      action.payload.servers.forEach((ea) => {
+      action.payload.Servers.forEach((ea) => {
         newState[ea.id] = ea;
       });
       return newState;
@@ -131,8 +127,8 @@ const serverReducer = (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case EDIT_SERVER:
-        newState[action.payload.id] = action.payload;
-        return newState;
+      newState[action.payload.id] = action.payload;
+      return newState;
     case DELETE_SERVER:
       delete newState[action.payload];
       return newState;
