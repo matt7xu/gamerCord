@@ -6,7 +6,8 @@
 
 .server_left {
   float: left;
-  margin-left: 10px;
+  margin-top: 10px;
+  margin-left: 1%;
 }
 
 .server_card_grid {
@@ -27,14 +28,14 @@
 
 .server_card_text {
   height: 50%;
-  margin-left: 50px;
+  margin-left: 10%;
   grid-area: 1 / 1 / 2 / 3;
 }
 
 .server_card_server {
-  margin-top: -50px;
+  margin-top: -22%;
   margin-right: 50px;
-  margin-left: 50px;
+  margin-left: 25%;
 }
 
 .quitServerButton {
@@ -54,6 +55,7 @@
   margin-left: 1px;
   border: 0.05em solid rgba(255, 255, 255, 0);
   border-radius: 2em;
+  color: #4f198d;
 }
 
 .all_server_icon:hover {
@@ -62,4 +64,14 @@
 
 .server_name_cont {
   margin-left: 9%;
+}
+
+.channel_tags {
+  margin-top: 10px;
+  margin-left: 9%;
+
+}
+
+.allChannel {
+  padding: 5px;
 }

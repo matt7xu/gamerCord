@@ -3,6 +3,7 @@ body {
   /* background-color: rgb(39, 38, 37); */
   color: white;
   background: linear-gradient(to left,
+    rgb(53, 52, 52) 0, rgb(53, 52, 52) 69%,
     rgb(37, 37, 43) 0, rgb(46, 46, 49) 91.66%,
     rgb(29, 29, 29) 0, rgb(31, 31, 31) 100%
 );

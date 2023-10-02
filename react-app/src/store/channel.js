@@ -52,13 +52,10 @@ export const loadChannelByIdThunk = (id) => async (dispatch) => {
   }
 }
 
-export const addChannelThunk = (newChannel) => async (dispatch) => {
+export const addChannelThunk = (newChannel, serverId) => async (dispatch) => {
 
-  const res = await fetch("/api/channels/", {
+  const res = await fetch(`/api/channels/${serverId}/new`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: newChannel
   });
 
@@ -73,9 +70,6 @@ export const editChannelThunk = (id, updateChannel) => async (dispatch) => {
 
   const res = await fetch(`/api/channels/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: updateChannel
   });
 
