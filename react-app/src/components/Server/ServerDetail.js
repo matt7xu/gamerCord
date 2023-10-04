@@ -7,6 +7,7 @@ import ServerSettingButton from './ServerSettingButton';
 import OpenModalButton from "../OpenModalButton";
 import CreateChannelModal from "../Channel/CreateChannelModal";
 import ChannelSettingButton from "../Channel/ChannelSettingButton";
+import Chat from "../Message";
 import "./Server.css";
 
 const ServerDetail = () => {
@@ -60,6 +61,7 @@ const ServerDetail = () => {
           ))}
         </div>
       </div>
+      <Chat />
     </div>
   )
 };

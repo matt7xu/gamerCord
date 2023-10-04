@@ -13,18 +13,14 @@ from .api.message_routes import message_routes
 from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
-from flask_sock import Sock
+from .socket import socketio
+
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
-
-# WebSocket
-sock = Sock(app)
-def create_app():
-    sock.init_app(app)
 
 
 @login.user_loader
@@ -44,6 +40,9 @@ app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(reaction_routes, url_prefix='/api/reactions')
 db.init_app(app)
 Migrate(app, db)
+
+# initialize the app with the socket instance
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -100,14 +99,10 @@ def react_root(path):
     return app.send_static_file('index.html')
 
 
-# WebSocket
-@sock.route('/echo')
-def echo(ws):
-    while True:
-        data = ws.receive()
-        ws.send(data)
-
-
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+
+if __name__ == '__main__':
+    socketio.run(app)
