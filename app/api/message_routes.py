@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Message
 from flask_login import current_user, login_required
+from app.forms import MessageForm
 
 message_routes = Blueprint('messages', __name__)
 
@@ -13,11 +14,15 @@ def getAllMessages():
     messages_info = []
 
     for each in messages:
+        user_name = User.query.get(each.user_id)
         messages_info.append({
             'id': each.id,
             'content': each.content,
             'user_id': each.user_id,
-            'channel_id': each.channel_id
+            'channel_id': each.channel_id,
+            'username': user_name.username,
+            'createdAt': each.createdAt,
+            'updatedAt': each.updatedAt
         })
 
     return {'messages': messages_info}
@@ -40,21 +45,21 @@ def messageDetails(id):
     return ret
 
 
-# Create a New Message
-@message_routes.route('/<int:id>/new', methods=['POST'])
-# @login_required
-def createMessage(id):
-    current_user_id = current_user.get_id()
-    new_content = request.json['content']
+# # Create a New Message
+# @message_routes.route('/<int:id>/new', methods=['POST'])
+# # @login_required
+# def createMessage(id):
+#     current_user_id = current_user.get_id()
+#     new_content = request.json['content']
 
-    new = Message(
-        content=new_content,
-        user_id=current_user_id,
-        channel_id=id
-    )
-    db.session.add(new)
-    db.session.commit()
-    return new.to_dict()
+#     new = Message(
+#         content=new_content,
+#         user_id=current_user_id,
+#         channel_id=id
+#     )
+#     db.session.add(new)
+#     db.session.commit()
+#     return new.to_dict()
 
 
 
@@ -68,11 +73,18 @@ def editMessage(id):
     #error response:
     if message_edit is None:
         return {'message': ["Message couldn\'t be found"]}, 404
-    new_content = request.json['content']
-    message_edit.content=new_content
 
-    db.session.commit()
-    return message_edit.to_dict()
+    form = MessageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        # new_content = request.json['content']
+        # message_edit.content=new_content
+        message_edit.content=form.data['content']
+
+        db.session.commit()
+        return message_edit.to_dict()
+    return {'errors': [form.errors]}, 401
 
 
 # Delete a Message

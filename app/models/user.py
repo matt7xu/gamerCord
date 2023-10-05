@@ -125,6 +125,7 @@ class Message(db.Model):
     content = db.Column(db.String(40), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id')), nullable=False)
+    username = db.Column(db.String(40), nullable=False, unique=True)
     createdAt = db.Column(db.DateTime, server_default=db.func.now())
     updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -133,6 +134,7 @@ class Message(db.Model):
             'id': self.id,
             'content': self.content,
             'user_id': self.user_id,
+            'username': self.username,
             'channel_id': self.channel_id,
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt

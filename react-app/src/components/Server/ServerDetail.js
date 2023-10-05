@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import * as serverActions from "../../store/server";
 import * as channelActions from "../../store/channel";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +12,17 @@ import "./Server.css";
 
 const ServerDetail = () => {
   const dispatch = useDispatch();
-  let serverId = useParams();
-  serverId = serverId.id
+  let channelId = useParams();
+
+  channelId = channelId.id
   const [showMenu, setShowMenu] = useState(false);
   const current_user = useSelector(state => state.session);
+  const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
+  let serverId = currentChannel[0]?.server_id;
   const alltServers = useSelector(state => state.server);
   const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
   const currentServer = useSelector(state => Object.values(state.server).filter(x => x.id == serverId));
+
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
@@ -54,14 +58,20 @@ const ServerDetail = () => {
         </div>
         <div>
           {allChannels.map((each) => (
-            <div key={each?.id} className="allChannel">
-              #{each?.name}
-              <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
-            </div>
+            <>
+              <div key={each?.id} className="allChannel">
+                <Link className="allChannelLink" key={each.id} to={`/channels/${each.id}`}>
+                  #{each?.name}
+                  <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
+                </Link>
+              </div>
+            </>
           ))}
         </div>
       </div>
-      <Chat />
+      <div>
+        <Chat channelId={channelId} />
+      </div>
     </div>
   )
 };

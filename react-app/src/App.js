@@ -44,7 +44,7 @@ function App() {
           <Route path="/guild-discovery">
             <AllServers />
           </Route>
-          <Route path="/servers/:id">
+          <Route path="/channels/:id">
             <ServerDetail />
           </Route>
         </Switch>

@@ -75,3 +75,8 @@
 .allChannel {
   padding: 5px;
 }
+
+.allChannelLink {
+  color: white;
+  text-decoration: none;
+}

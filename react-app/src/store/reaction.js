@@ -1,6 +1,6 @@
 const LOAD_ALL_REACTION = "reactions/all";
 const LOAD_REACTION_BY_ID = "reactions/loadReactionById";
-const ADD_REACTION = "reactions/addReaction";
+// const ADD_REACTION = "reactions/addReaction";
 const EDIT_REACTION = "reactions/editReaction";
 const DELETE_REACTION = "reactions/deleteReaction";
 
@@ -15,10 +15,10 @@ export const loadReactionById = (reaction) => ({
   payload: reaction
 });
 
-export const addReaction = (reaction) => ({
-  type: ADD_REACTION,
-  payload: reaction
-});
+// export const addReaction = (reaction) => ({
+//   type: ADD_REACTION,
+//   payload: reaction
+// });
 
 export const editReaction = (reaction) => ({
   type: EDIT_REACTION,
@@ -52,30 +52,24 @@ export const loadReactionByIdThunk = (id) => async (dispatch) => {
   }
 }
 
-export const addReactionThunk = (newReaction) => async (dispatch) => {
+// export const addReactionThunk = (newReaction) => async (dispatch) => {
 
-  const res = await fetch("/api/reactions/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: newReaction
-  });
+//   const res = await fetch("/api/reactions/", {
+//     method: "POST",
+//     body: newReaction
+//   });
 
-  if (res.ok) {
-    const reaction = await res.json();
-    dispatch(addReaction(reaction));
-    return reaction;
-  }
-};
+//   if (res.ok) {
+//     const reaction = await res.json();
+//     dispatch(addReaction(reaction));
+//     return reaction;
+//   }
+// };
 
 export const editReactionThunk = (id, updateReaction) => async (dispatch) => {
 
   const res = await fetch(`/api/reactions/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: updateReaction
   });
 
@@ -109,9 +103,9 @@ const reactionReducer = (state = initialState, action) => {
     case LOAD_REACTION_BY_ID:
       newState[action.payload.id] = action.payload;
       return newState;
-    case ADD_REACTION:
-      newState[action.payload.id] = action.payload;
-      return newState;
+    // case ADD_REACTION:
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
     case EDIT_REACTION:
         newState[action.payload.id] = action.payload;
         return newState;
