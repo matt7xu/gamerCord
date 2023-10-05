@@ -53,6 +53,7 @@ def allusers():
         users_info.append({
             'id': each.id,
             'image': each.image,
+            'vip': each.vip
         })
 
     return {'users': users_info}

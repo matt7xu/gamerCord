@@ -21,6 +21,7 @@ const Chat = ({ channelId }) => {
   useEffect(() => {
     dispatch(messageActions.loadAllMessageThunk());
     dispatch(sessionActions.loadAllUserThunk());
+    dispatch(sessionActions.loadUserByIdThunk(user.id));
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Chat = ({ channelId }) => {
 
   const handleUserImage = (message) => {
     let id = message?.user_id
-    let imageLink = allUser[id]?.image
+    let imageLink = allUser[id].image
     return (
       <img className="messageImage" src={imageLink} alt="userImage"></img>
     )
@@ -65,6 +66,17 @@ const Chat = ({ channelId }) => {
       + ('00' + a.getMinutes()).substring(('00' + a.getMinutes()).length - 2);
   }
 
+  let checkVIP = (message) => {
+    let id = message.user_id
+    let ifvip = allUser[id].vip
+    if (ifvip) {
+      return (
+        <i className="fas fa-crown" />
+      )
+    }
+    return null;
+  }
+
   return (user && (
     <div>
       <div className="messageCont">
@@ -74,6 +86,7 @@ const Chat = ({ channelId }) => {
               {handleUserImage(message)}
             </div>
             <div className="messageContUsername">
+              {checkVIP(message) }
               {`${message?.username}  ${getCorrectString(message?.createdAt)}`} <MessageSettingButton message={message} />
             </div>
             <div className="messageContMessage">

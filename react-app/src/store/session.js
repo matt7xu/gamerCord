@@ -164,9 +164,6 @@ export const userJoinServerThunk = (serverId, userId) => async (dispatch) => {
 	const res = await fetch(`/api/servers/${serverId}/user/${userId}`,
 		{
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: {}
 		});
 
@@ -213,9 +210,11 @@ export default function reducer(state = initialState, action) {
 		case REMOVE_USER:
 			return { user: null };
 		case UPDATE_VIP:
-			return { user: action.payload };
+			newState['user']['vip'] = !newState['user']['vip'];
+			return newState;
 		case LOAD_USER_BY_ID:
-			return { user: action.payload };
+			newState['user'] = action.payload;
+			return newState;
 		case USER_JOIN_SERVER:
 			return { user: action.payload };
 		case USER_QUIT_SERVER:

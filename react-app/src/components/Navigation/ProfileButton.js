@@ -54,7 +54,7 @@ function ProfileButton({ user }) {
             <OpenModalButton
               buttonText="Shop"
               onItemClick={closeMenu}
-              modalComponent={<UserVIPModal />}
+              modalComponent={<UserVIPModal userId={user.id} />}
             />
             <li>{user.username}</li>
             <li>{user.email}</li>

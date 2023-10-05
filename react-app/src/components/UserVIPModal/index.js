@@ -6,7 +6,7 @@ import * as sessionActions from "../../store/session.js";
 import vipPicture from "./vip.png";
 import './UserVIPModal.css';
 
-const UserVIPModal = () => {
+const UserVIPModal = ({ userId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
@@ -14,24 +14,25 @@ const UserVIPModal = () => {
   const current_user = useSelector(state => state.session);
 
   const handleClick = async (e) => {
-  e.preventDefault();
-  const data = await dispatch(sessionActions.updateUserVIPThunk(current_user.user.id));
+    e.preventDefault();
+    // const data = await dispatch(sessionActions.updateUserVIPThunk(current_user?.user.id));
+    const data = await dispatch(sessionActions.updateUserVIPThunk(userId));
     if (data) {
       closeModal();
-      history.push("/");
+      history.push("/guild-discovery");
     }
   }
 
-return (
-  <div>
+  return (
     <div>
-      <img src={vipPicture} alt="vip"></img>
+      <div>
+        <img src={vipPicture} alt="vip"></img>
+      </div>
+      <div>
+        <button className="joinVIPbutton" onClick={handleClick} type="submit">JOIN NOW</button>
+      </div>
     </div>
-    <div>
-      <button className="joinVIPbutton" onClick={handleClick} type="submit">JOIN NOW</button>
-    </div>
-  </div>
-);
+  );
 }
 
 export default UserVIPModal;
