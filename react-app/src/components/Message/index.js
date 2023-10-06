@@ -4,7 +4,10 @@ import { io } from 'socket.io-client';
 import * as messageActions from "../../store/message";
 import * as sessionActions from "../../store/session";
 import MessageSettingButton from "./MessageSettingButton";
+import Picker from 'emoji-picker-react';
 import "./Message.css";
+import noImage from "./noImage.jpeg";
+
 
 
 let socket;
@@ -12,7 +15,9 @@ let socket;
 const Chat = ({ channelId }) => {
   const dispatch = useDispatch();
   const [chatInput, setChatInput] = useState("");
-  // const [messages, setMessages] = useState([]);
+  const [showPicker, setShowPicker] = useState(false);
+  const [reaction, setReaction] = useState(null);
+  const [selectMessage, setSelectMessage] = useState(null);
   const user = useSelector(state => state.session.user)
   const allUser = useSelector(state => state.session)
   const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
@@ -52,9 +57,16 @@ const Chat = ({ channelId }) => {
   const handleUserImage = (message) => {
     let id = message?.user_id
     let imageLink = allUser[id]?.image
-    return (
-      <img className="messageImage" src={imageLink} alt="userImage"></img>
-    )
+    if (imageLink?.length > 3) {
+      return (
+        <img className="messageImage" src={imageLink} alt="userImage"></img>
+      )
+    } else {
+      return (
+        <img className="messageImage" src={noImage} alt="userImage"></img>
+      )
+    }
+
   }
 
   function getCorrectString(dateTimeString) {
@@ -77,8 +89,23 @@ const Chat = ({ channelId }) => {
     return null;
   }
 
+  const onEmojiClick = (e, emojiObject) => {
+    setReaction(e.emoji)
+    setShowPicker(false);
+  };
+
+  let kk = () => {
+    console.log("*******", reaction)
+  }
+
+  const handleOnClickEmoji = (e, message) => {
+    setShowPicker(val => !val);
+    setSelectMessage(message.id);
+  }
+
   return (user && (
     <div>
+      {kk()}
       <div className="messageCont">
         {currentChannelMessages.map((message, ind) => (
           <div key={ind} className="messageBox">
@@ -86,8 +113,20 @@ const Chat = ({ channelId }) => {
               {handleUserImage(message)}
             </div>
             <div className="messageContUsername">
-              {checkVIP(message) }
-              {`${message?.username}  ${getCorrectString(message?.createdAt)}`} <MessageSettingButton message={message} />
+              {checkVIP(message)}
+              {`${message?.username}  ${getCorrectString(message?.createdAt)}`}
+
+
+              <i class="fas fa-smile-wink emoji-icon tooltip"
+                onClick={e => handleOnClickEmoji(e, message)}>
+                {showPicker && selectMessage == message?.id && <Picker
+                  pickerStyle={{ width: '100%' }}
+                  onEmojiClick={onEmojiClick} />}
+                <span class="tooltiptext">Add Reaction</span>
+              </i>
+
+
+              <MessageSettingButton message={message} />
             </div>
             <div className="messageContMessage">
               {`${message?.content}`}
@@ -105,9 +144,9 @@ const Chat = ({ channelId }) => {
         <button type="submit">Send</button>
       </form>
     </div>
-  )
-  )
+      )
+      )
 };
 
 
-export default Chat;
+      export default Chat;

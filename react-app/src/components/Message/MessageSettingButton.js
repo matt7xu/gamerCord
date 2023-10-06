@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import EditMessageModal from "./EditMessageModal";
 import DeleteMessageModal from "./DeleteMessageModal";
-
+import "./Message.css";
 
 function MessageSettingButton({ message }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -33,7 +33,7 @@ function MessageSettingButton({ message }) {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <>
+    <div className="MessageSettingButtonDiv">
       {current_user?.user?.id == message?.user_id ?
         <>
           <button onClick={openMenu}>
@@ -57,7 +57,7 @@ function MessageSettingButton({ message }) {
           </ul>
         </>
         : null}
-    </>
+    </div>
   );
 }
 
