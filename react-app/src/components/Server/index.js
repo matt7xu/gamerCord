@@ -52,14 +52,15 @@ const Servers = ({ userId }) => {
 
   const create_server_logo = () => {
     return (
-      <div className="add_server_icon_div">
+      <div className="tooltip">
         <i className="fas fa-plus fa-3x add_server_icon"></i>
+        <span class="tooltiptext">Add a Server</span>
       </div>
     )
   }
 
   const linktoChannel = (server) => {
-    let channelId=0;
+    let channelId = 0;
 
     for (let i = 0; i < allChannels.length; i++) {
       if (allChannels[i].server_id == server.id) {
@@ -68,8 +69,8 @@ const Servers = ({ userId }) => {
       }
     }
     return (
-      <Link key={server.id} to={`/channels/${channelId}`}>
-        {handleEachServer(server)}
+      <Link key={server?.id} to={`/channels/${channelId}`}>
+          {handleEachServer(server)}
       </Link>
     )
   }
@@ -90,7 +91,10 @@ const Servers = ({ userId }) => {
       </div>
       <div>
         <Link to={`/guild-discovery`}>
-          <i className="fas fa-compass fa-3x all_server_icon"></i>
+          <div className="tooltip">
+            <i className="fas fa-compass fa-3x all_server_icon"></i>
+            <span class="tooltiptext">Explore Discoverable Servers</span>
+          </div>
         </Link>
       </div>
     </div>

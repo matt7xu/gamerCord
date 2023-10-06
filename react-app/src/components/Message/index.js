@@ -51,7 +51,7 @@ const Chat = ({ channelId }) => {
 
   const handleUserImage = (message) => {
     let id = message?.user_id
-    let imageLink = allUser[id].image
+    let imageLink = allUser[id]?.image
     return (
       <img className="messageImage" src={imageLink} alt="userImage"></img>
     )
@@ -67,8 +67,8 @@ const Chat = ({ channelId }) => {
   }
 
   let checkVIP = (message) => {
-    let id = message.user_id
-    let ifvip = allUser[id].vip
+    let id = message?.user_id
+    let ifvip = allUser[id]?.vip
     if (ifvip) {
       return (
         <i className="fas fa-crown" />
