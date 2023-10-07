@@ -34,7 +34,7 @@ const ServerDetail = () => {
     return (
       <div className="tooltip">
         <i className="fas fa-plus"></i>
-        <span class="tooltiptext">Create Channel</span>
+        <span className="tooltiptext">Create Channel</span>
       </div>
     )
   }
@@ -48,7 +48,7 @@ const ServerDetail = () => {
       </div>
       <div className="channel_tags">
         <hr></hr>
-        <div>TEXT CHANNELS
+        <div className="textChannelsDiv">TEXT CHANNELS
           {current_user?.user?.id == currentServer?.user_id ?
             <OpenModalButton
               buttonText={create_channel_logo()}

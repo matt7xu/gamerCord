@@ -112,6 +112,7 @@ def deleteServer(id):
     db.session.commit()
     return {'message':  "Successfully deleted"}, 200
 
+
 # user join to an server
 @server_routes.route('/<int:serverId>/user/<int:userId>', methods=["POST"])
 # @login_required

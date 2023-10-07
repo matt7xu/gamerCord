@@ -34,7 +34,7 @@ export const deleteReaction = (id) => ({
 //thunk
 export const loadAllReactionThunk = () => async (dispatch) => {
   const res = await fetch("/api/reactions/");
-  console.log("%%%%%%%%%%")
+
   if (res.ok) {
     const reactions = await res.json();
     dispatch(loadAllReaction(reactions));
@@ -97,7 +97,7 @@ const reactionReducer = (state = initialState, action) => {
   let newState = { ...state }
   switch (action.type) {
     case LOAD_ALL_REACTION:
-      action.payload.reactions?.forEach((ea) => {
+      action.payload.reactions.forEach((ea) => {
         newState[ea.id] = ea;
       });
       return newState;

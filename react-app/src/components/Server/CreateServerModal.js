@@ -85,7 +85,8 @@ function CreateServerModal() {
         </div>
         <div>
           <label>
-            Server Image Url
+            Server Image (optional)
+					URL must end in .png, .jpg, or .jpeg
             <input
               type="text"
               value={image}

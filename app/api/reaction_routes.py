@@ -20,7 +20,7 @@ def getAllReactions():
             'message_id': each.message_id
         })
 
-    return {'messages': reactions_info}
+    return {'reactions': reactions_info}
 
 
 # Get Details of a Reaction from an Id

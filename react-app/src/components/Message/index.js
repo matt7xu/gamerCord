@@ -23,6 +23,7 @@ const Chat = ({ channelId }) => {
   const allUser = useSelector(state => state.session)
   const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
   const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
+  const allReactions = useSelector(state => state.reaction)
 
   useEffect(() => {
     dispatch(messageActions.loadAllMessageThunk());
@@ -103,7 +104,7 @@ const Chat = ({ channelId }) => {
   };
 
   let kk = () => {
-    // console.log("*******", reaction)
+    console.log("*******allReactions", allReactions)
   }
 
   const handleOnClickEmoji = (e, message) => {
@@ -125,12 +126,12 @@ const Chat = ({ channelId }) => {
               {`${message?.username}  ${getCorrectString(message?.createdAt)}`}
 
 
-              <i class="fas fa-smile-wink emoji-icon tooltip"
+              <i className="fas fa-smile-wink emoji-icon tooltip"
                 onClick={e => handleOnClickEmoji(e, message)}>
                 {showPicker && selectMessage == message?.id && <Picker
                   pickerStyle={{ width: '100%' }}
                   onEmojiClick={e=>onEmojiClick(e,message)} />}
-                <span class="tooltiptext">Add Reaction</span>
+                <span className="tooltiptext">Add Reaction</span>
               </i>
 
 
