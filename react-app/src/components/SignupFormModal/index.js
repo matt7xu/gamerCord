@@ -12,14 +12,17 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [image, setImage] = useState("");
 	const [errors, setErrors] = useState([]);
 	const [showMenu, setShowMenu] = useState(false);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
+
+
+		if (password === confirmPassword && Object.values(errors).length === 0) {
+			const data = await dispatch(signUp(username, email, password, image));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -31,6 +34,7 @@ function SignupFormModal() {
 			]);
 		}
 	};
+
 
 	const closeMenu = () => setShowMenu(false);
 
@@ -79,14 +83,23 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
+				<label>
+					User Avatar (optional)
+					URL must end in .png, .jpg, or .jpeg
+					<input
+						type="text"
+						value={image}
+						onChange={(e) => setImage(e.target.value)}
+					/>
+				</label>
 				<button type="submit">Continue</button>
 				<div>By registering, you agree to GamerCord's Terms of Service and Privacy Policy.</div>
 				<div>
-				  <OpenModalButton
-              buttonText="Already have an account"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-							/>
+					<OpenModalButton
+						buttonText="Already have an account"
+						onItemClick={closeMenu}
+						modalComponent={<LoginFormModal />}
+					/>
 				</div>
 
 			</form>

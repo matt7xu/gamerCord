@@ -40,7 +40,7 @@ function ServerSettingButton({ serverId, server_info }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+      <button onClick={openMenu} title="Edit Server">
         <i className="fas fa-cog" />
       </button>
       <ul className={ulClassName} ref={ulRef}>

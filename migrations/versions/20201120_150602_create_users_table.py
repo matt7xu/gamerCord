@@ -52,6 +52,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=40), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('channel_id', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), server_default=sa.func.current_timestamp(), nullable=False),
     sa.Column('updatedAt', sa.DateTime(), server_default=sa.func.current_timestamp(), nullable=False),

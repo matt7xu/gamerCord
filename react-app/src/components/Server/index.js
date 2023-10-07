@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as serverActions from "../../store/server";
 import * as sessionActions from "../../store/session";
+import * as channelActions from "../../store/channel";
 import noPicture from "./No_image.png";
 import OpenModalButton from "../OpenModalButton";
 import CreateServerModal from "./CreateServerModal";
@@ -14,10 +15,12 @@ const Servers = ({ userId }) => {
   const current_user = useSelector(state => state.session);
   const [showMenu, setShowMenu] = useState(false);
   const user_servers = current_user.user.servers;
+  const allChannels = useSelector(state => Object.values(state.channel));
 
   useEffect(() => {
     dispatch(sessionActions.loadUserByIdThunk(userId));
     dispatch(serverActions.loadServerOwnedThunk());
+    dispatch(channelActions.loadAllChannelThunk());
   }, [dispatch]);
 
   const closeMenu = () => setShowMenu(false);
@@ -49,18 +52,35 @@ const Servers = ({ userId }) => {
 
   const create_server_logo = () => {
     return (
-      <div className="add_server_icon_div">
+      <div className="tooltip">
         <i className="fas fa-plus fa-3x add_server_icon"></i>
+        <span class="tooltiptext">Add a Server</span>
       </div>
     )
   }
 
+  const linktoChannel = (server) => {
+    let channelId = 0;
+
+    for (let i = 0; i < allChannels.length; i++) {
+      if (allChannels[i].server_id == server.id) {
+        channelId = allChannels[i].id;
+        break;
+      }
+    }
+    return (
+      <Link key={server?.id} to={`/servers/${server?.id}`}>
+          {handleEachServer(server)}
+      </Link>
+    )
+  }
+
+
   return (
     <div className="server_left">
+
       {user_servers?.map((server) => (
-        <Link key={server.id} to={`/servers/${server.id}`}>
-          {handleEachServer(server)}
-        </Link>
+        linktoChannel(server)
       ))}
       <div>
         <OpenModalButton
@@ -71,7 +91,10 @@ const Servers = ({ userId }) => {
       </div>
       <div>
         <Link to={`/guild-discovery`}>
-          <i className="fas fa-compass fa-3x all_server_icon"></i>
+          <div className="tooltip">
+            <i className="fas fa-compass fa-3x all_server_icon"></i>
+            <span class="tooltiptext">Explore Discoverable Servers</span>
+          </div>
         </Link>
       </div>
     </div>

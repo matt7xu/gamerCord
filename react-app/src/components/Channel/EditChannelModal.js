@@ -1,36 +1,29 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as channelActions from "../../store/channel";
 
-function CreateChannelModal({ serverId }) {
+function EditChannelModal({ channelId, channel_info }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { closeModal } = useModal();
-  const [name, setName] = useState("");
-  const [private_server, setPrivate_server] = useState(false);
+  const [name, setName] = useState(channel_info.name);
+  const [private_server, setPrivate_server] = useState(channel_info.private);
   // const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const updatedChannel = new FormData();
+    updatedChannel.append("name", name);
+    updatedChannel.append("private", private_server);
 
-    let formData = new FormData();
-    formData.append("name", name);
-    formData.append("private", private_server);
-
-    dispatch(channelActions.addChannelThunk(formData, serverId));
-
+    await dispatch(channelActions.editChannelThunk(channelId, updatedChannel));
     closeModal()
-    // history.push(`/servers/${serverId}`);
-  }
+  };
 
   return (
-    <div className="pageContainers">
-      <div>
-        <h1>Create Channel</h1>
-        <p>in Text Channels</p>
-      </div>
+    <div>
+      <h1>#{channel_info?.name} TEXT CHANNELS</h1>
+      <h2>Overview</h2>
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
@@ -52,7 +45,7 @@ function CreateChannelModal({ serverId }) {
         </div>
         <div>
           <label>
-            Private Channel
+            private
             <input
               type="radio"
               value="False"
@@ -68,11 +61,10 @@ function CreateChannelModal({ serverId }) {
             True
           </label>
         </div>
-        <p>Only selected members and roles will be able to view this channel.</p>
-        <button type="submit">Create</button>
+        <button type="submit">Update</button>
       </form>
     </div>
-  );
-}
+  )
+};
 
-export default CreateChannelModal;
+export default EditChannelModal;

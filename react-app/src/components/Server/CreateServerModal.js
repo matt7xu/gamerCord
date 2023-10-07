@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as serverActions from "../../store/server";
 import * as sessionActions from "../../store/session";
+import * as channelActions from "../../store/channel";
+
 
 function CreateServerModal() {
   const dispatch = useDispatch();
@@ -24,6 +26,11 @@ function CreateServerModal() {
 
     const data = await dispatch(serverActions.addServerThunk(formData));
     dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+
+    let formDataServer = new FormData();
+    formDataServer.append("name", "general");
+    formDataServer.append("private", false);
+    dispatch(channelActions.addChannelThunk(formDataServer, data.id));
 
     closeModal()
     history.push("/guild-discovery");

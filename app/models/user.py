@@ -81,7 +81,7 @@ class Server(db.Model):
     # relationships
     #one-to-many
     # 1. channels
-    channels_server = db.relationship("Channel", back_populates="server_channels")
+    channels_server = db.relationship("Channel", back_populates="server_channels", cascade='all, delete')
     # 2. user
     user_servers = db.relationship("User", back_populates="servers_user")
     #many-to-many
@@ -113,7 +113,7 @@ class Channel(db.Model):
     # 1.server
     server_channels = db.relationship("Server", back_populates="channels_server")
     # 2.message
-    messages_channel = db.relationship("Message", back_populates="channel_messages")
+    messages_channel = db.relationship("Message", back_populates="channel_messages", cascade='all, delete')
 
 class Message(db.Model):
     __tablename__ = 'messages'
@@ -125,6 +125,7 @@ class Message(db.Model):
     content = db.Column(db.String(40), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channels.id')), nullable=False)
+    username = db.Column(db.String(40), nullable=False, unique=True)
     createdAt = db.Column(db.DateTime, server_default=db.func.now())
     updatedAt = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -133,6 +134,7 @@ class Message(db.Model):
             'id': self.id,
             'content': self.content,
             'user_id': self.user_id,
+            'username': self.username,
             'channel_id': self.channel_id,
             'createdAt': self.createdAt,
             'updatedAt': self.updatedAt
@@ -145,7 +147,7 @@ class Message(db.Model):
     # 2. channel
     channel_messages = db.relationship("Channel", back_populates="messages_channel")
     # 3. reaction
-    reactions_message = db.relationship("Reaction", back_populates="message_reactions")
+    reactions_message = db.relationship("Reaction", back_populates="message_reactions", cascade='all, delete')
 
 
 class Reaction(db.Model):

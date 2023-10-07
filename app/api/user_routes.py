@@ -41,3 +41,19 @@ def updateVip(id):
     user.vip = not user.vip
     db.session.commit()
     return user.to_dict()
+
+
+@user_routes.route('/all', methods=['GET'])
+# @login_required
+def allusers():
+    users = User.query.all()
+    users_info = []
+
+    for each in users:
+        users_info.append({
+            'id': each.id,
+            'image': each.image,
+            'vip': each.vip
+        })
+
+    return {'users': users_info}

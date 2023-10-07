@@ -11,10 +11,12 @@ const AllServers = () => {
   const history = useHistory();
   const allServers = useSelector(state => state.server);
   const current_user = useSelector(state => state.session);
+  const userId = current_user?.user?.id
 
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
+    // dispatch(sessionActions.loadUserByIdThunk());
   }, [dispatch]);
 
   const checkImage = (urlString) => {
@@ -41,7 +43,7 @@ const AllServers = () => {
   const joinServer = (e, serverId) => {
     const userId = current_user?.user?.id
     dispatch(sessionActions.userJoinServerThunk(serverId, userId));
-    history.push(`/servers/${serverId}`);
+    // history.push(`/servers/${serverId}`);
   }
 
   const checkServerJoinedOrNot = (serverId) => {

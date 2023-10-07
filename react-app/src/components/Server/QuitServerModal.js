@@ -12,7 +12,7 @@ function DeleteServerModal({serverId, userId}) {
         e.preventDefault();
         dispatch(sessionActions.userQuitServerThunk(serverId, userId));
         closeModal()
-        history.push("/");
+        history.push("/guild-discovery");
     };
 
     return(

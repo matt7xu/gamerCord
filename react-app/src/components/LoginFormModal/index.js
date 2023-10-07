@@ -29,11 +29,17 @@ function LoginFormModal() {
   };
   const closeMenu = () => setShowMenu(false);
 
-  const demoLogin = (e) => {
+  const demoLogin1 = (e) => {
     e.preventDefault();
     dispatch(sessionActions.login("PeterGriffin@aa.io", "password"))
     closeModal()
     // history.push("/servers/@me");
+  }
+
+  const demoLogin2 = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.login("Stewart@aa.io", "password"))
+    closeModal()
   }
 
   return (
@@ -74,7 +80,10 @@ function LoginFormModal() {
             />
         </div>
         <div>
-        <button onClick={demoLogin} type="submit">Demo User</button>
+        <button onClick={demoLogin1} type="submit">Demo User1</button>
+        </div>
+        <div>
+        <button onClick={demoLogin2} type="submit">Demo User2</button>
         </div>
       </form>
     </>

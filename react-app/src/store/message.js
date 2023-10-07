@@ -56,9 +56,6 @@ export const addMessageThunk = (newMessage) => async (dispatch) => {
 
   const res = await fetch("/api/messages/", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: newMessage
   });
 
@@ -73,9 +70,6 @@ export const editMessageThunk = (id, updateMessage) => async (dispatch) => {
 
   const res = await fetch(`/api/messages/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: updateMessage
   });
 
