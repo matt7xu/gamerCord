@@ -16,7 +16,7 @@ const AllServers = () => {
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
-    dispatch(sessionActions.loadUserByIdThunk());
+    // dispatch(sessionActions.loadUserByIdThunk());
   }, [dispatch]);
 
   const checkImage = (urlString) => {

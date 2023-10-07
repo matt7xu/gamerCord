@@ -32,11 +32,12 @@ function ChannelSettingButton({ channelId, currentServer, channel_info }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
+
   return (
     <>
-    {current_user?.user?.id == currentServer[0]?.user_id ?
+    {current_user?.user?.id == currentServer?.user_id ?
     <>
-      <button onClick={openMenu}>
+      <button onClick={openMenu} title="Edit Channel">
         <i className="fas fa-cog" />
       </button>
       <ul className={ulClassName} ref={ulRef}>

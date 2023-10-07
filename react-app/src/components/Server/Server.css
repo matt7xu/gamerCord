@@ -110,3 +110,8 @@
   color: white;
   text-decoration: none;
 }
+
+.serverWelcome {
+  margin-left: 30%;
+  text-align: center;
+}

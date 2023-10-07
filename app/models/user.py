@@ -81,7 +81,7 @@ class Server(db.Model):
     # relationships
     #one-to-many
     # 1. channels
-    channels_server = db.relationship("Channel", back_populates="server_channels")
+    channels_server = db.relationship("Channel", back_populates="server_channels", cascade='all, delete')
     # 2. user
     user_servers = db.relationship("User", back_populates="servers_user")
     #many-to-many
@@ -113,7 +113,7 @@ class Channel(db.Model):
     # 1.server
     server_channels = db.relationship("Server", back_populates="channels_server")
     # 2.message
-    messages_channel = db.relationship("Message", back_populates="channel_messages")
+    messages_channel = db.relationship("Message", back_populates="channel_messages", cascade='all, delete')
 
 class Message(db.Model):
     __tablename__ = 'messages'
@@ -147,7 +147,7 @@ class Message(db.Model):
     # 2. channel
     channel_messages = db.relationship("Channel", back_populates="messages_channel")
     # 3. reaction
-    reactions_message = db.relationship("Reaction", back_populates="message_reactions")
+    reactions_message = db.relationship("Reaction", back_populates="message_reactions", cascade='all, delete')
 
 
 class Reaction(db.Model):

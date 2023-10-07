@@ -22,7 +22,7 @@ function CreateChannelModal({ serverId }) {
     dispatch(channelActions.addChannelThunk(formData, serverId));
 
     closeModal()
-    history.push(`/servers/${serverId}`);
+    // history.push(`/servers/${serverId}`);
   }
 
   return (

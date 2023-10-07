@@ -3,25 +3,26 @@ import { useParams, Link } from 'react-router-dom';
 import * as serverActions from "../../store/server";
 import * as channelActions from "../../store/channel";
 import { useDispatch, useSelector } from "react-redux";
-import ServerSettingButton from './ServerSettingButton';
 import OpenModalButton from "../OpenModalButton";
-import "./Server.css";
-import ChannelDetails from "../Channel/ChannelDetails";
-import CreateChannelModal from "../Channel/CreateChannelModal";
-import ChannelSettingButton from "../Channel/ChannelSettingButton";
+import CreateChannelModal from "./CreateChannelModal";
+import ChannelSettingButton from "./ChannelSettingButton";
+import ServerSettingButton from '../Server/ServerSettingButton';
+import Chat from "../Message";
+import "./Channel.css";
 
-const ServerDetail = () => {
+const ChannelDetails = () => {
   const dispatch = useDispatch();
-  let serverId = useParams();
-  serverId = serverId.id
+  let channelId = useParams();
+  channelId = channelId.id
 
   const [showMenu, setShowMenu] = useState(false);
   const current_user = useSelector(state => state.session);
-  const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
-
-
+  const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
+  let serverId = currentChannel[0]?.server_id;
   const allServers = useSelector(state => state.server);
-  const currentServer = allServers[serverId];
+  const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
+  const currentServer = useSelector(state => Object.values(state.server).filter(x => x.id == serverId));
+
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
@@ -30,22 +31,21 @@ const ServerDetail = () => {
 
   const closeMenu = () => setShowMenu(false);
 
-
   const create_channel_logo = () => {
     return (
-      <div className="tooltip">
+      <div>
         <i className="fas fa-plus"></i>
-        <span class="tooltiptext">Create Channel</span>
       </div>
     )
   }
 
-  let kk=()=>{
-    // console.log("$$$$$$$$", xxChannels)
+  let kk=()=> {
+console.log("!!!!!!", currentServer)
   }
 
   return (
     <div>
+   <div>
       {kk()}
       <div className="server_name_cont">
         {allServers[serverId]?.name}'s server
@@ -67,20 +67,18 @@ const ServerDetail = () => {
             <div key={each?.id} className="allChannel">
               <Link className="allChannelLink" key={each.id} to={`/channels/${each.id}`}>
                 #{each?.name}
-                <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
+                <ChannelSettingButton channelId={each?.id} currentServer={currentServer[0]} channel_info={each} />
               </Link>
             </div>
           ))}
         </div>
       </div>
-      {/* <ChannelDetails /> */}
-      <div className="serverWelcome">
-        <h1>Welcome to</h1>
-        <h1>{currentServer?.name}</h1>
-        <h3>This is the beginning of this server.</h3>
+    </div>
+      <div>
+        <Chat channelId={channelId} />
       </div>
     </div>
   )
 };
 
-export default ServerDetail;
+export default ChannelDetails;

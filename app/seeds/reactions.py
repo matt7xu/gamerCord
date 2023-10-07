@@ -3,13 +3,13 @@ from sqlalchemy.sql import text
 
 def seed_reactions():
     r1 = Reaction(
-        content='smile', user_id= 1, message_id=1
+        content='😃', user_id= 1, message_id=1
     )
     r2 = Reaction(
-        content='joy', user_id= 1,  message_id=2
+        content='😅', user_id= 1,  message_id=2
     )
     r3 = Reaction(
-        content='wink', user_id= 2,  message_id=1
+        content='😍', user_id= 2,  message_id=1
     )
     db.session.add(r1)
     db.session.add(r2)

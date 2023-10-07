@@ -1,18 +1,26 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channel";
 
 function DeleteChannelModal({ channelId, serverId }) {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   const { closeModal } = useModal();
+
+  const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
 
   const confirmButtonHandler = (e) => {
     e.preventDefault();
     dispatch(channelActions.deleteChannelThunk(channelId));
+
     closeModal()
-    // history.push(`/servers/${serverId}`);
+    if (allChannels.length > 0) {
+      history.push(`/channels/${allChannels[0].id}`);
+    } else {
+      history.push(`/guild-discovery`);
+    }
+
   };
 
   return (

@@ -9,6 +9,7 @@ import Servers from "./components/Server";
 import LandingPage from "./components/LandingPage";
 import AllServers from "./components/Server/AllServers";
 import ServerDetail from "./components/Server/ServerDetail";
+import ChannelDetails from "./components/Channel/ChannelDetails";
 import homePicture from "./home.png";
 import "./index.css";
 
@@ -44,8 +45,11 @@ function App() {
           <Route path="/guild-discovery">
             <AllServers />
           </Route>
-          <Route path="/channels/:id">
+          <Route path="/servers/:id">
             <ServerDetail />
+          </Route>
+          <Route path="/channels/:id">
+            <ChannelDetails />
           </Route>
         </Switch>
       )}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { io } from 'socket.io-client';
 import * as messageActions from "../../store/message";
 import * as sessionActions from "../../store/session";
+import * as reactionActions from "../../store/reaction";
 import MessageSettingButton from "./MessageSettingButton";
 import Picker from 'emoji-picker-react';
 import "./Message.css";
@@ -27,6 +28,7 @@ const Chat = ({ channelId }) => {
     dispatch(messageActions.loadAllMessageThunk());
     dispatch(sessionActions.loadAllUserThunk());
     dispatch(sessionActions.loadUserByIdThunk(user.id));
+    dispatch(reactionActions.loadAllReactionThunk());
   }, [dispatch]);
 
   useEffect(() => {
@@ -34,10 +36,15 @@ const Chat = ({ channelId }) => {
     // create websocket
     socket = io();
 
-    socket.on("chat", (chat) => {
+    socket.on("chat", () => {
       dispatch(messageActions.loadAllMessageThunk());
       // setMessages(messages => [...messages, chat])
     })
+
+    socket.on("emoj", () => {
+      dispatch(reactionActions.loadAllReactionThunk());
+    })
+
     // when component unmounts, disconnect
     return (() => {
       socket.disconnect()
@@ -89,13 +96,14 @@ const Chat = ({ channelId }) => {
     return null;
   }
 
-  const onEmojiClick = (e, emojiObject) => {
+  const onEmojiClick = (e, message) => {
     setReaction(e.emoji)
+    socket.emit("emoj", { userId: user.id, content: reaction, messageId: message?.id });
     setShowPicker(false);
   };
 
   let kk = () => {
-    console.log("*******", reaction)
+    // console.log("*******", reaction)
   }
 
   const handleOnClickEmoji = (e, message) => {
@@ -121,7 +129,7 @@ const Chat = ({ channelId }) => {
                 onClick={e => handleOnClickEmoji(e, message)}>
                 {showPicker && selectMessage == message?.id && <Picker
                   pickerStyle={{ width: '100%' }}
-                  onEmojiClick={onEmojiClick} />}
+                  onEmojiClick={e=>onEmojiClick(e,message)} />}
                 <span class="tooltiptext">Add Reaction</span>
               </i>
 

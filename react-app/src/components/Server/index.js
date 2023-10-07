@@ -69,7 +69,7 @@ const Servers = ({ userId }) => {
       }
     }
     return (
-      <Link key={server?.id} to={`/channels/${channelId}`}>
+      <Link key={server?.id} to={`/servers/${server?.id}`}>
           {handleEachServer(server)}
       </Link>
     )
