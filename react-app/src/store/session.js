@@ -5,7 +5,8 @@ const UPDATE_VIP = "users/UPDATE_VIP";
 const LOAD_USER_BY_ID = "users/loadUserById";
 const USER_JOIN_SERVER = "servers/userJoinServer";
 const USER_QUIT_SERVER = "servers/userQuitServer";
-const LOAD_ALL_USER = "users/all"
+const LOAD_ALL_USER = "users/all";
+const EDIT_USER_SERVER_BY_ID = "users/updateUserServer";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -40,6 +41,11 @@ export const loadAllUser = (users) => ({
 	type: LOAD_ALL_USER,
 	payload: users
 });
+
+const editUserServerById = (updated_user, serverId, image) => ({
+	type: EDIT_USER_SERVER_BY_ID,
+	payload: [updated_user, serverId, image]
+})
 
 const initialState = { user: null };
 
@@ -151,13 +157,21 @@ export const loadAllUserThunk = () => async (dispatch) => {
 	}
 }
 
-export const loadUserByIdThunk = (id) => async (dispatch) => {
-	const res = await fetch(`/api/users/${id}`);
-
+export const loadUserByIdThunk = (userId) => async (dispatch) => {
+	const res = await fetch(`/api/users/${userId}`);
 	if (res.ok) {
 		const current_user = await res.json();
 		dispatch(loadUserById(current_user));
 		return current_user;
+	}
+}
+
+export const editUserServerByIdThunk = (userId, serverId, image) => async (dispatch) => {
+	const res = await fetch(`/api/users/${userId}`);
+	if (res.ok) {
+		const updated_user_server_info = await res.json();
+		dispatch(editUserServerById(updated_user_server_info, serverId, image));
+		return updated_user_server_info;
 	}
 }
 
@@ -198,6 +212,21 @@ const helperFunDelete = (state, action, userId, serverId) => {
 	return state
 }
 
+const helperFunEdit = (state, action, updatedServer, serverId, image) => {
+	let newState = { ...state }
+	let servers = state.user.servers
+	let currentId = 0;
+	for (let i = 0; i < servers.length; i++) {
+		if (servers[i].id == serverId) {
+			currentId = i;
+			break;
+		}
+	}
+
+	newState['user']['servers'][currentId.toString()].image = image
+	return newState
+}
+
 export default function reducer(state = initialState, action) {
 	let newState = { ...state }
 	switch (action.type) {
@@ -220,6 +249,8 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case USER_QUIT_SERVER:
 			return helperFunDelete(newState, action, action.payload[0], action.payload[1])
+		case EDIT_USER_SERVER_BY_ID:
+			return helperFunEdit(newState, action, action.payload[0], action.payload[1], action.payload[2])
 		default:
 			return state;
 	}

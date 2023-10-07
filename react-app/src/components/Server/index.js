@@ -44,7 +44,14 @@ const Servers = ({ userId }) => {
     } else {
       return (
         <div>
-          <img className="server_image" src={server.image} alt="serverImage"></img>
+          <img className="server_image" src={server.image}
+            alt="link broken"
+            onError={event => {
+              event.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png"
+              event.onerror = null
+            }}></img>
+
+
         </div>
       )
     }
@@ -70,15 +77,13 @@ const Servers = ({ userId }) => {
     }
     return (
       <Link key={server?.id} to={`/servers/${server?.id}`}>
-          {handleEachServer(server)}
+        {handleEachServer(server)}
       </Link>
     )
   }
 
-
   return (
     <div className="server_left">
-
       {user_servers?.map((server) => (
         linktoChannel(server)
       ))}

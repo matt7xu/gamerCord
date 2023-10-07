@@ -8,7 +8,7 @@ import QuitServerModal from "./QuitServerModal";
 // import * as sessionActions from "../../store/session";
 import "./Server.css";
 
-function ServerSettingButton({ serverId, server_info }) {
+function ServerSettingButton({ serverId, server_info, userId }) {
   // const dispatch = useDispatch();
   // const history = useHistory();
 
@@ -50,7 +50,7 @@ function ServerSettingButton({ serverId, server_info }) {
               <OpenModalButton
                 buttonText="Edit Server"
                 onItemClick={closeMenu}
-                modalComponent={<EditServerModal serverId={serverId} server_info={server_info} />}
+                modalComponent={<EditServerModal serverId={serverId} server_info={server_info} userId={current_user?.user?.id} />}
               />
               <OpenModalButton
                 buttonText="Delete Server"

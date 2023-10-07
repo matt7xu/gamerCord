@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as serverActions from "../../store/server";
+import * as sessionActions from "../../store/session";
 
-function EditServerModal({ serverId, server_info }) {
+function EditServerModal({ serverId, server_info, userId }) {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   const [name, setName] = useState(server_info.name);
   const [private_server, setPrivate_server] = useState(server_info.private);
   const [image, setImage] = useState(server_info.image);
   // const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+  // useEffect(() => {
+  //   dispatch(sessionActions.loadUserByIdThunk(userId));
+  // }, [dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +25,15 @@ function EditServerModal({ serverId, server_info }) {
     updatedServer.append("private", private_server);
     updatedServer.append("image", image);
 
-    await dispatch(serverActions.editServerThunk(serverId, updatedServer));
+    dispatch(serverActions.editServerThunk(serverId, updatedServer));
+
+    // dispatch(sessionActions.loadUserByIdThunk(userId));
+    dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
+
     closeModal()
-    // history.push(`/{serverId}`);
+    history.push(`/servers/${serverId}`);
   };
+
 
   return (
     <div>
@@ -55,9 +65,8 @@ function EditServerModal({ serverId, server_info }) {
               type="radio"
               value="False"
               onChange={(e) => setPrivate_server(false)}
-              checked
             />
-            False
+            False(default)
             <input
               type="radio"
               value="True"

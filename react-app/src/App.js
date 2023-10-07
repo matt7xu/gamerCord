@@ -21,7 +21,7 @@ function App() {
   }, [dispatch]);
 
   const sessionUser = useSelector(state => state.session.user);
-  const userId = sessionUser?.id.toString()
+  const userId = sessionUser?.id?.toString()
 
   return (
     <>

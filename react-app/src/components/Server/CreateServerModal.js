@@ -30,7 +30,7 @@ function CreateServerModal() {
     let formDataServer = new FormData();
     formDataServer.append("name", "general");
     formDataServer.append("private", false);
-    dispatch(channelActions.addChannelThunk(formDataServer, data.id));
+    // dispatch(channelActions.addChannelThunk(formDataServer, data.id));
 
     closeModal()
     history.push(`/servers/${data.id}`);
@@ -74,7 +74,7 @@ function CreateServerModal() {
               onChange={(e) => setPrivate_server(false)}
               // checked
             />
-            False
+            False(default)
             <input
               type="radio"
               value="True"
