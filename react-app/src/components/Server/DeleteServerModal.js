@@ -17,12 +17,9 @@ function DeleteServerModal({serverId, userId}) {
         closeModal()
         history.push("/guild-discovery");
     };
-let kk = ()=>{
-  console.log("KKKKKKKKDeleteServerModal", typeof(serverId))
-}
+
     return(
         <div>
-{kk()}
             <h1>Confirm Delete</h1>
             <h5>Are you sure you want to remove this server?</h5>
             <button className="" onClick={confirmButtonHandler}>Yes (Delete Server)</button>

@@ -39,14 +39,10 @@ const ChannelDetails = () => {
     )
   }
 
-  let kk=()=> {
-console.log("!!!!!!", currentServer)
-  }
 
   return (
     <div>
    <div>
-      {kk()}
       <div className="server_name_cont">
         {allServers[serverId]?.name}'s server
         <ServerSettingButton serverId={serverId} server_info={allServers[serverId]} />

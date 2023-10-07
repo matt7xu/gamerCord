@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ServerSettingButton from './ServerSettingButton';
 import OpenModalButton from "../OpenModalButton";
 import "./Server.css";
-import ChannelDetails from "../Channel/ChannelDetails";
 import CreateChannelModal from "../Channel/CreateChannelModal";
 import ChannelSettingButton from "../Channel/ChannelSettingButton";
 
@@ -40,13 +39,9 @@ const ServerDetail = () => {
     )
   }
 
-  let kk=()=>{
-    // console.log("$$$$$$$$", xxChannels)
-  }
 
   return (
     <div>
-      {kk()}
       <div className="server_name_cont">
         {allServers[serverId]?.name}'s server
         <ServerSettingButton serverId={serverId} server_info={allServers[serverId]} />

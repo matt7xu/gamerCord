@@ -56,6 +56,7 @@ def serversOwned():
 # @login_required
 def createServer():
     form = ServerForm()
+    print("$$$$$$$$", form.data['private'])
     current_user_id = current_user.get_id()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
