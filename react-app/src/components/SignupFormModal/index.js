@@ -20,9 +20,6 @@ function SignupFormModal() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (image && (checkImage(image))) {
-			setErrors(["Image URL must end in .png, .jpg, or .jpeg"]);
-		}
 
 		if (password === confirmPassword && Object.values(errors).length === 0) {
 			const data = await dispatch(signUp(username, email, password, image));
@@ -38,14 +35,6 @@ function SignupFormModal() {
 		}
 	};
 
-	const checkImage = (urlString) => {
-		const endings = ["png", "jpg", "jpeg"];
-		const array = urlString.split(".");
-		if (endings.includes(array[array.length - 1])) {
-			return false;
-		}
-		return true;
-	}
 
 	const closeMenu = () => setShowMenu(false);
 
@@ -95,7 +84,8 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					User Avatar Image
+					User Avatar (optional)
+					URL must end in .png, .jpg, or .jpeg
 					<input
 						type="text"
 						value={image}
