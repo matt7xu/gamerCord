@@ -33,7 +33,7 @@ function CreateServerModal() {
     dispatch(channelActions.addChannelThunk(formDataServer, data.id));
 
     closeModal()
-    history.push("/guild-discovery");
+    history.push(`/servers/${data.id}`);
 
 
 
@@ -72,7 +72,7 @@ function CreateServerModal() {
               type="radio"
               value="False"
               onChange={(e) => setPrivate_server(false)}
-              checked
+              // checked
             />
             False
             <input
@@ -85,7 +85,8 @@ function CreateServerModal() {
         </div>
         <div>
           <label>
-            Server Image Url
+            Server Image (optional)
+					URL must end in .png, .jpg, or .jpeg
             <input
               type="text"
               value={image}

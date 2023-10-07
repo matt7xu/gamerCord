@@ -11,18 +11,15 @@ function DeleteServerModal({serverId, userId}) {
 
     const confirmButtonHandler = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.userQuitServerThunk(serverId, userId));
         dispatch(serverActions.deleteServerThunk(serverId));
+        dispatch(sessionActions.userQuitServerThunk(serverId, userId));
 
         closeModal()
-        history.push("/guild-discovery");
+        history.push("/");
     };
-let kk = ()=>{
-  console.log("KKKKKKKKDeleteServerModal", typeof(serverId))
-}
+
     return(
         <div>
-{kk()}
             <h1>Confirm Delete</h1>
             <h5>Are you sure you want to remove this server?</h5>
             <button className="" onClick={confirmButtonHandler}>Yes (Delete Server)</button>

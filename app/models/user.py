@@ -47,14 +47,14 @@ class User(db.Model, UserMixin):
     # relationships
     #one-to-many
     # 1. servers.userId
-    servers_user = db.relationship("Server", back_populates="user_servers")
+    servers_user = db.relationship("Server", back_populates="user_servers", lazy="dynamic")
     # 2. Messages.userId
     messages_user = db.relationship("Message", back_populates="user_messages")
     # 3. Reactions.userId
     reactions_user = db.relationship("Reaction", back_populates="user_reactions")
     #many-to-many
     # 4. users_servers.userId
-    servers = db.relationship("Server", secondary=users_servers, back_populates="users")
+    servers = db.relationship("Server", secondary=users_servers, back_populates="users", cascade='all, delete-orphan', single_parent=True)
 
 
 class Server(db.Model):

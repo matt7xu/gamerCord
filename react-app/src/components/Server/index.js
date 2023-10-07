@@ -54,7 +54,7 @@ const Servers = ({ userId }) => {
     return (
       <div className="tooltip">
         <i className="fas fa-plus fa-3x add_server_icon"></i>
-        <span class="tooltiptext">Add a Server</span>
+        <span className="tooltiptext">Add a Server</span>
       </div>
     )
   }
@@ -93,7 +93,7 @@ const Servers = ({ userId }) => {
         <Link to={`/guild-discovery`}>
           <div className="tooltip">
             <i className="fas fa-compass fa-3x all_server_icon"></i>
-            <span class="tooltiptext">Explore Discoverable Servers</span>
+            <span className="tooltiptext">Explore Discoverable Servers</span>
           </div>
         </Link>
       </div>

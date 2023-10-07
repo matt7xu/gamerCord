@@ -71,7 +71,7 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
-        <div>
+        <div className="loginDemoButton">
         <h3>Need an account?</h3>
         <OpenModalButton
               buttonText="Register"
@@ -79,10 +79,10 @@ function LoginFormModal() {
               modalComponent={<SignupFormModal />}
             />
         </div>
-        <div>
+        <div className="loginDemoButton">
         <button onClick={demoLogin1} type="submit">Demo User1</button>
         </div>
-        <div>
+        <div className="loginDemoButton">
         <button onClick={demoLogin2} type="submit">Demo User2</button>
         </div>
       </form>

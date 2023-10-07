@@ -36,7 +36,7 @@ function MessageSettingButton({ message }) {
     <div className="MessageSettingButtonDiv">
       {current_user?.user?.id == message?.user_id ?
         <>
-          <button onClick={openMenu}>
+          <button onClick={openMenu} title="Edit Message">
             <i className="fas fa-ellipsis-h" />
           </button>
           <ul className={ulClassName} ref={ulRef}>

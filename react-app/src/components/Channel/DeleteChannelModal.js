@@ -15,11 +15,7 @@ function DeleteChannelModal({ channelId, serverId }) {
     dispatch(channelActions.deleteChannelThunk(channelId));
 
     closeModal()
-    if (allChannels.length > 0) {
-      history.push(`/channels/${allChannels[0].id}`);
-    } else {
-      history.push(`/guild-discovery`);
-    }
+      history.push(`/servers/${serverId}`);
 
   };
 

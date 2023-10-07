@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ServerSettingButton from './ServerSettingButton';
 import OpenModalButton from "../OpenModalButton";
 import "./Server.css";
-import ChannelDetails from "../Channel/ChannelDetails";
 import CreateChannelModal from "../Channel/CreateChannelModal";
 import ChannelSettingButton from "../Channel/ChannelSettingButton";
 
@@ -35,25 +34,21 @@ const ServerDetail = () => {
     return (
       <div className="tooltip">
         <i className="fas fa-plus"></i>
-        <span class="tooltiptext">Create Channel</span>
+        <span className="tooltiptext">Create Channel</span>
       </div>
     )
   }
 
-  let kk=()=>{
-    // console.log("$$$$$$$$", xxChannels)
-  }
 
   return (
     <div>
-      {kk()}
       <div className="server_name_cont">
         {allServers[serverId]?.name}'s server
         <ServerSettingButton serverId={serverId} server_info={allServers[serverId]} />
       </div>
       <div className="channel_tags">
         <hr></hr>
-        <div>TEXT CHANNELS
+        <div className="textChannelsDiv">TEXT CHANNELS
           {current_user?.user?.id == currentServer?.user_id ?
             <OpenModalButton
               buttonText={create_channel_logo()}

@@ -3,14 +3,14 @@ body {
   /* background-color: rgb(39, 38, 37); */
   color: white;
   background: linear-gradient(to left,
-    rgb(53, 52, 52) 0, rgb(53, 52, 52) 69%,
-    rgb(37, 37, 43) 0, rgb(46, 46, 49) 91.66%,
-    rgb(29, 29, 29) 0, rgb(31, 31, 31) 100%
+    rgb(48,51,56,255) 0, rgb(48,51,56,255) 69%,
+    rgba(43,45,48,255) 0, rgba(43,45,48,255) 91.66%,
+    rgba(30,31,34,255) 0, rgba(30,31,34,255) 100%
 );
 }
 
 .home_image {
-  margin-left: 10%;
+  margin-left: 27%;
   height: auto;
   max-width: 60%;
 }
