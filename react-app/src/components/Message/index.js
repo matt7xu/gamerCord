@@ -113,13 +113,15 @@ const Chat = ({ channelId }) => {
       }
     }
     return (currentMessageReactions.map((eachReaction) => (
-      <button class="action_btn" type="button" onClick={e => handleDeleteReaction(e, eachReaction?.id)}>{eachReaction.content}</button>
+      <button class="action_btn" type="button" onClick={e => handleDeleteReaction(e, eachReaction)}>{eachReaction.content}</button>
     )))
   }
 
-  const handleDeleteReaction = (e, reactionId) => {
+  const handleDeleteReaction = (e, reaction) => {
     e.preventDefault();
-    dispatch(reactionActions.deleteReactionThunk(reactionId));
+    if (reaction?.user_id == user?.id) {
+      dispatch(reactionActions.deleteReactionThunk(reaction?.id));
+    }
   }
 
   return (user && (

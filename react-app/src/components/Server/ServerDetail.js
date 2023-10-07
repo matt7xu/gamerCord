@@ -44,7 +44,7 @@ const ServerDetail = () => {
     <div>
       <div className="server_name_cont">
         {allServers[serverId]?.name}'s server
-        <ServerSettingButton serverId={serverId} server_info={allServers[serverId]} />
+        <ServerSettingButton serverId={serverId} server_info={allServers[serverId]} userId={current_user?.user?.id} />
       </div>
       <div className="channel_tags">
         <hr></hr>
@@ -62,8 +62,8 @@ const ServerDetail = () => {
             <div key={each?.id} className="allChannel">
               <Link className="allChannelLink" key={each.id} to={`/channels/${each.id}`}>
                 #{each?.name}
-                <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
               </Link>
+              <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
             </div>
           ))}
         </div>

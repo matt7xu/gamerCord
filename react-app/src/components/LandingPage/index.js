@@ -14,7 +14,7 @@ function LandingPage() {
         <i className="fas fa-download" /> Download for Mac
       </button>
       <button onClick={handleReserve} className="landingButton">
-        Open Discord in your browser
+        Open Gamercord in your browser
       </button>
     </div >
   )

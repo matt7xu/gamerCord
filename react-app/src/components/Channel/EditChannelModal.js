@@ -50,9 +50,9 @@ function EditChannelModal({ channelId, channel_info }) {
               type="radio"
               value="False"
               onChange={(e) => setPrivate_server(false)}
-              checked
+
             />
-            False
+            False(default)
             <input
               type="radio"
               value="True"

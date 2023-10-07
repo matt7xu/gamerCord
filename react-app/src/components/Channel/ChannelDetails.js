@@ -21,7 +21,8 @@ const ChannelDetails = () => {
   let serverId = currentChannel[0]?.server_id;
   const allServers = useSelector(state => state.server);
   const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
-  const currentServer = useSelector(state => Object.values(state.server).filter(x => x.id == serverId));
+  // const currentServer = useSelector(state => Object.values(state.server).filter(x => x.id == serverId));
+  const currentServer = allServers[serverId]
 
 
   useEffect(() => {
@@ -63,7 +64,7 @@ const ChannelDetails = () => {
             <div key={each?.id} className="allChannel">
               <Link className="allChannelLink" key={each.id} to={`/channels/${each.id}`}>
                 #{each?.name}
-                <ChannelSettingButton channelId={each?.id} currentServer={currentServer[0]} channel_info={each} />
+                <ChannelSettingButton channelId={each?.id} currentServer={currentServer} channel_info={each} />
               </Link>
             </div>
           ))}
