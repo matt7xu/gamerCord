@@ -60,3 +60,16 @@
   margin-left: 10%;
   display: inline-block
 }
+
+.reactionbuttons {
+  /* width: 960px; */
+  margin: 0 auto;
+  margin-left: 20%;
+  margin-top: -5%;
+  margin-bottom: 5%;
+}
+
+.action_btn {
+  display: inline;
+
+}

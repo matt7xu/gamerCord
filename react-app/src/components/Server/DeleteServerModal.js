@@ -18,12 +18,8 @@ function DeleteServerModal({serverId, userId}) {
         history.push("/");
     };
 
-    let kk=()=>{
-      console.log("&&&&&",serverId, typeof(serverId))
-    }
     return(
         <div>
-          {kk()}
             <h1>Confirm Delete</h1>
             <h5>Are you sure you want to remove this server?</h5>
             <button className="" onClick={confirmButtonHandler}>Yes (Delete Server)</button>

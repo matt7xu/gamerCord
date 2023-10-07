@@ -10,20 +10,18 @@ import "./Message.css";
 import noImage from "./noImage.jpeg";
 
 
-
 let socket;
 
 const Chat = ({ channelId }) => {
   const dispatch = useDispatch();
   const [chatInput, setChatInput] = useState("");
   const [showPicker, setShowPicker] = useState(false);
-  const [reaction, setReaction] = useState(null);
   const [selectMessage, setSelectMessage] = useState(null);
   const user = useSelector(state => state.session.user)
   const allUser = useSelector(state => state.session)
   const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
   const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
-  const allReactions = useSelector(state => state.reaction)
+  const allReactions = useSelector(state => Object.values(state.reaction));
 
   useEffect(() => {
     dispatch(messageActions.loadAllMessageThunk());
@@ -98,47 +96,59 @@ const Chat = ({ channelId }) => {
   }
 
   const onEmojiClick = (e, message) => {
-    setReaction(e.emoji)
-    socket.emit("emoj", { userId: user.id, content: reaction, messageId: message?.id });
+    socket.emit("emoj", { userId: user.id, content: e.emoji, messageId: message?.id });
     setShowPicker(false);
   };
-
-  let kk = () => {
-    console.log("*******allReactions", allReactions)
-  }
 
   const handleOnClickEmoji = (e, message) => {
     setShowPicker(val => !val);
     setSelectMessage(message.id);
   }
 
+  const handleRenderReactions = (message) => {
+    let currentMessageReactions = [];
+    for (let i = 0; i < allReactions.length; i++) {
+      if (allReactions[i].message_id == message.id) {
+        currentMessageReactions.push(allReactions[i])
+      }
+    }
+    return (currentMessageReactions.map((eachReaction) => (
+      <button class="action_btn" type="button" onClick={e => handleDeleteReaction(e, eachReaction?.id)}>{eachReaction.content}</button>
+    )))
+  }
+
+  const handleDeleteReaction = (e, reactionId) => {
+    e.preventDefault();
+    dispatch(reactionActions.deleteReactionThunk(reactionId));
+  }
+
   return (user && (
     <div>
-      {kk()}
       <div className="messageCont">
         {currentChannelMessages.map((message, ind) => (
-          <div key={ind} className="messageBox">
-            <div className="messageContUserimage">
-              {handleUserImage(message)}
+          <div key={ind}>
+            <div className="messageBox">
+              <div className="messageContUserimage">
+                {handleUserImage(message)}
+              </div>
+              <div className="messageContUsername">
+                {checkVIP(message)}
+                {`${message?.username}  ${getCorrectString(message?.createdAt)}`}
+                <i className="fas fa-smile-wink emoji-icon tooltip"
+                  onClick={e => handleOnClickEmoji(e, message)}>
+                  {showPicker && selectMessage == message?.id && <Picker
+                    pickerStyle={{ width: '100%' }}
+                    onEmojiClick={e => onEmojiClick(e, message)} />}
+                  <span className="tooltiptext">Add Reaction</span>
+                </i>
+                <MessageSettingButton message={message} />
+              </div>
+              <div className="messageContMessage">
+                {`${message?.content}`}
+              </div>
             </div>
-            <div className="messageContUsername">
-              {checkVIP(message)}
-              {`${message?.username}  ${getCorrectString(message?.createdAt)}`}
-
-
-              <i className="fas fa-smile-wink emoji-icon tooltip"
-                onClick={e => handleOnClickEmoji(e, message)}>
-                {showPicker && selectMessage == message?.id && <Picker
-                  pickerStyle={{ width: '100%' }}
-                  onEmojiClick={e=>onEmojiClick(e,message)} />}
-                <span className="tooltiptext">Add Reaction</span>
-              </i>
-
-
-              <MessageSettingButton message={message} />
-            </div>
-            <div className="messageContMessage">
-              {`${message?.content}`}
+            <div className="reactionbuttons">
+              {handleRenderReactions(message)}
             </div>
           </div>
         ))}
@@ -153,9 +163,9 @@ const Chat = ({ channelId }) => {
         <button type="submit">Send</button>
       </form>
     </div>
-      )
-      )
+  )
+  )
 };
 
 
-      export default Chat;
+export default Chat;
