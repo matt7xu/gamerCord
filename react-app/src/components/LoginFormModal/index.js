@@ -24,7 +24,7 @@ function LoginFormModal() {
       setErrors(data);
     } else {
         closeModal()
-        history.push("/servers/@me");
+        history.push("/");
     }
   };
   const closeMenu = () => setShowMenu(false);
