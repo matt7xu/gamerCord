@@ -26,6 +26,7 @@ def handle_chat(data):
     db.session.add(new)
     db.session.commit()
 
+
 @socketio.on("emoj")
 def handle_emoj(data):
     emit("emoj", data, broadcast=True)
