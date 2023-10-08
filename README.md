@@ -63,4 +63,4 @@ The backend of GamerCord is built using Python and Flask with a PostgreSQL datab
 - Visual Studio Code
 
 ## To Dos / Future Features
-- AWS to uplord image
+- AWS to upload image
