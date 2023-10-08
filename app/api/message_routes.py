@@ -28,7 +28,7 @@ def getAllMessages():
     return {'messages': messages_info}
 
 
-# Get Details of a Message from an Id
+# Get Details of a Message by Id
 @message_routes.route('/<int:id>', methods=['GET'])
 def messageDetails(id):
     message_Details = Message.query.get(id)
@@ -44,7 +44,7 @@ def messageDetails(id):
 
     return ret
 
-
+#using websocket instead
 # # Create a New Message
 # @message_routes.route('/<int:id>/new', methods=['POST'])
 # # @login_required

@@ -40,6 +40,7 @@ def reactionDetails(id):
     return ret
 
 
+#using websocket instead
 # Create a New Reaction
 @reaction_routes.route('/<int:id>/new', methods=['POST'])
 # @login_required
