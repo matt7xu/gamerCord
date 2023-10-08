@@ -85,9 +85,7 @@ export const deleteMessageThunk = (id) => async (dispatch) => {
     method: "DELETE",
   });
 
-  if (res.ok) {
-    return dispatch(deleteMessage(id));
-  }
+  return dispatch(deleteMessage(id));
 };
 
 const initialState = {};
@@ -107,8 +105,8 @@ const messageReducer = (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case EDIT_MESSAGE:
-        newState[action.payload.id] = action.payload;
-        return newState;
+      newState[action.payload.id] = action.payload;
+      return newState;
     case DELETE_MESSAGE:
       delete newState[action.payload];
       return newState;

@@ -17,11 +17,7 @@ const Chat = ({ channelId }) => {
   const [chatInput, setChatInput] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectMessage, setSelectMessage] = useState(null);
-  const user = useSelector(state => state.session.user)
-  const allUser = useSelector(state => state.session)
-  const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
-  const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
-  const allReactions = useSelector(state => Object.values(state.reaction));
+
 
   useEffect(() => {
     dispatch(messageActions.loadAllMessageThunk());
@@ -49,6 +45,12 @@ const Chat = ({ channelId }) => {
       socket.disconnect()
     })
   }, [])
+
+  const user = useSelector(state => state.session.user)
+  const allUser = useSelector(state => state.session)
+  const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
+  const currentChannel = useSelector(state => Object.values(state.channel).filter(x => x.id == channelId));
+  const allReactions = useSelector(state => Object.values(state.reaction));
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value)
