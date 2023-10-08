@@ -19,10 +19,8 @@ function DeleteChannelModal({ channelId, serverId }) {
     }
 
     dispatch(channelActions.deleteChannelThunk(channelId));
-
     closeModal()
     history.push(`/servers/${serverId}`);
-
   };
 
   return (
