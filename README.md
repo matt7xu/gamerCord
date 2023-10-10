@@ -1,6 +1,7 @@
 # GamerCord
 
-Welcome to GamerCord! Check out our live version here: 
+Welcome to GamerCord! Check out our live version here:   https://gamercord.onrender.com
+
 
 GamerCord is based off Discord, which allows users to chat inside the custom channels
 
