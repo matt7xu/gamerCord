@@ -103,18 +103,19 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password, image) => async (dispatch) => {
+export const signUp = (user) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			username,
-			email,
-			password,
-			image
-		}),
+		// headers: {
+		// 	"Content-Type": "application/json",
+		// },
+		// body: JSON.stringify({
+		// 	username,
+		// 	email,
+		// 	password,
+		// 	image
+		// }),
+		body: user
 	});
 
 	if (response.ok) {
@@ -203,7 +204,7 @@ const helperFunDelete = (state, action, userId, serverId) => {
 	let servers = state.user.servers
 	let currentId = 0;
 	for (let i = 0; i < servers.length; i++) {
-		if (servers[i].id == serverId) {
+		if (servers[i]?.id == serverId) {
 			currentId = i;
 			break;
 		}

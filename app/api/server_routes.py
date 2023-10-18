@@ -3,6 +3,7 @@ from app.models import User, db, Server, users_servers
 from app.forms import ServerForm
 from flask_login import current_user, login_required
 from sqlalchemy import and_
+from app.api.helper import upload_file_to_s3, get_unique_filename
 
 server_routes = Blueprint('servers', __name__)
 
@@ -56,13 +57,27 @@ def serversOwned():
 # @login_required
 def createServer():
     form = ServerForm()
-    print("$$$$$$$$", form.data['private'])
+    # print("$$$$$$$$", form.data['private'])
     current_user_id = current_user.get_id()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
+        image_file = form.image.data
+
+        if image_file == None:
+            url_image = ""
+        else:
+            image_filename = get_unique_filename(image_file.filename)
+            upload = upload_file_to_s3(image_file, image_filename)
+
+            if "url" not in upload:
+                return {'errors': 'Failed to upload'}
+
+            url_image = upload["url"]
+
         new = Server(
             name=form.data['name'],
-            image=form.data['image'],
+            image=url_image,
             private=form.data['private'],
             user_id=current_user_id
         )

@@ -13,30 +13,47 @@ function CreateServerModal() {
   const { closeModal } = useModal();
   const [name, setName] = useState("");
   const [private_server, setPrivate_server] = useState(false);
-  const [image, setImage] = useState("");
-  // const [errors, setErrors] = useState([]);
+  const [image, setImage] = useState('');
+  const [imageLoading, setImageLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let formData = new FormData();
-    formData.append("name", name);
-    formData.append("private", private_server);
-    formData.append("image", image);
+    let errorMess = [];
 
-    const data = await dispatch(serverActions.addServerThunk(formData));
-    dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+    if (image !== '') {
+      const allowedExtensions = ['png', 'jpg', 'jpeg'];
 
-    let formDataServer = new FormData();
-    formDataServer.append("name", "general");
-    formDataServer.append("private", false);
-    // dispatch(channelActions.addChannelThunk(formDataServer, data.id));
+      const fileExtension = image.name.split('.');
 
-    closeModal()
-    history.push(`/servers/${data.id}`);
+      if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
+        errorMess.push('Image file must have a valid extension: .png, .jpg, .jpeg')
+      }
+    }
 
+    setErrors(errorMess)
 
+    if (errorMess.length === 0) {
 
+      let formData = new FormData();
+      formData.append("name", name);
+      formData.append("private", private_server);
+      formData.append("image", image);
+
+      const data = await dispatch(serverActions.addServerThunk(formData));
+      
+      dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+
+      let formDataServer = new FormData();
+      formDataServer.append("name", "general");
+      formDataServer.append("private", false);
+      // dispatch(channelActions.addChannelThunk(formDataServer, data.id));
+
+      closeModal()
+      history.push(`/servers/${data.id}`);
+    }
+    setImageLoading(false);
   }
 
   return (
@@ -49,11 +66,12 @@ function CreateServerModal() {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* <ul>
+        <ul>
           {errors.length > 0 && errors.map(el => (
             <div key={el} className="errors">{el}</div>
           ))}
-        </ul> */}
+        </ul>
+        {(imageLoading) && <p>Image Uploading...</p>}
         <div>
           <label>
             Name
@@ -72,7 +90,7 @@ function CreateServerModal() {
               type="radio"
               value="False"
               onChange={(e) => setPrivate_server(false)}
-              // checked
+            // checked
             />
             False(default)
             <input
@@ -86,11 +104,12 @@ function CreateServerModal() {
         <div>
           <label>
             Server Image (optional)
-					URL must end in .png, .jpg, or .jpeg
+            URL must end in .png, .jpg, or .jpeg
             <input
-              type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              type="file"
+              // value={image}
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
             />
           </label>
         </div>

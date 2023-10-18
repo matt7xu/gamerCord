@@ -76,3 +76,12 @@ input[type="texts"] {
   border-radius: 4px;
   font-size: 16px;
 }
+
+.errors_mess {
+  color: red;
+  display: flex;
+  /* justify-content: center; */
+  width: 100%;
+  margin: 5px 0px;
+  font-size: 12pt;
+}
