@@ -3,6 +3,7 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import * as channelActions from "../../store/channel";
 import * as messageActions from "../../store/message";
+import * as reactionActions from "../../store/reaction";
 
 function DeleteChannelModal({ channelId, serverId }) {
   const dispatch = useDispatch();
@@ -11,12 +12,19 @@ function DeleteChannelModal({ channelId, serverId }) {
 
   const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
   const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
+  const allReaction = useSelector(state => Object.values(state.reaction));
 
   const confirmButtonHandler = (e) => {
     e.preventDefault();
-    for (let i = 0; i < currentChannelMessages.length; i++) {
-      dispatch(messageActions.deleteMessageThunk(currentChannelMessages[i].id));
-    }
+    currentChannelMessages.forEach((message) => {
+      let currMess = allReaction.filter((reac) => reac.message_id == message.id);
+      if (currMess.length !== 0) {
+          currMess.forEach((reaction) => {
+              dispatch(reactionActions.deleteReactionThunk(reaction.id));
+          })
+      }
+      dispatch(messageActions.deleteMessageThunk(message.id));
+  })
 
     dispatch(channelActions.deleteChannelThunk(channelId));
     closeModal()
