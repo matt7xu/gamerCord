@@ -19,17 +19,9 @@ const AllServers = () => {
     // dispatch(sessionActions.loadUserByIdThunk());
   }, [dispatch]);
 
-  const checkImage = (urlString) => {
-    const endings = ["png", "jpg", "jpeg"];
-    const array = urlString.split(".");
-    if (endings.includes(array[array.length - 1])) {
-      return false;
-    }
-    return true;
-  }
 
   const handleEachServer = (server) => {
-    if (checkImage(server.image)) {
+    if (server.image == null  || server.image == '') {
       return (
         <img className="server_card_img" src={noPicture} alt="noImage"></img>
       )

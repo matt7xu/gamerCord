@@ -11,7 +11,7 @@ function EditServerModal({ serverId, server_info, userId }) {
   const [name, setName] = useState(server_info.name);
   const [private_server, setPrivate_server] = useState(server_info.private);
   const [image, setImage] = useState(server_info.image);
-  // const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   // useEffect(() => {
@@ -20,20 +20,35 @@ function EditServerModal({ serverId, server_info, userId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedServer = new FormData();
-    updatedServer.append("name", name);
-    updatedServer.append("private", private_server);
-    updatedServer.append("image", image);
 
-    dispatch(serverActions.editServerThunk(serverId, updatedServer));
+    let errorMess = [];
+    if (image !== '' && image != null) {
+      const allowedExtensions = ['png', 'jpg', 'jpeg'];
 
-    // dispatch(sessionActions.loadUserByIdThunk(userId));
-    dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
+      const fileExtension = image.name.split('.');
 
-    closeModal()
-    history.push(`/servers/${serverId}`);
+      if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
+        errorMess.push('Image file must have a valid extension: .png, .jpg, .jpeg')
+      }
+    }
+
+    setErrors(errorMess)
+
+    if (errorMess.length === 0) {
+      const updatedServer = new FormData();
+      updatedServer.append("name", name);
+      updatedServer.append("private", private_server);
+      updatedServer.append("image", image);
+
+      dispatch(serverActions.editServerThunk(serverId, updatedServer));
+
+      // dispatch(sessionActions.loadUserByIdThunk(userId));
+      dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
+
+      closeModal()
+      history.push(`/servers/${serverId}`);
+    }
   };
-
 
   return (
     <div>
@@ -42,11 +57,11 @@ function EditServerModal({ serverId, server_info, userId }) {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* <ul>
+        <ul>
           {errors.length > 0 && errors.map(el => (
             <div key={el} className="errors">{el}</div>
           ))}
-        </ul> */}
+        </ul>
         <div>
           <label>
             Name
@@ -75,19 +90,22 @@ function EditServerModal({ serverId, server_info, userId }) {
             True
           </label>
         </div>
-        <div>
-          <label>
-            Server Image Url
-            <input
-              type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-            />
-          </label>
-        </div>
+        <label>
+          Server Image (optional)
+          URL must end in .png, .jpg, or .jpeg
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+          {image.name ?
+            <label>Selected Image: {image.name} </label> :
+          <label>Selected Image: {image} </label>
+            }
+        </label>
         <button type="submit">Update</button>
-      </form>
-    </div>
+      </form >
+    </div >
   )
 };
 

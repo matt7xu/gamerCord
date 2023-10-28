@@ -15,7 +15,7 @@ const Servers = ({ userId }) => {
   const current_user = useSelector(state => state.session);
   const [showMenu, setShowMenu] = useState(false);
   const user_servers = current_user.user.servers;
-  const allChannels = useSelector(state => Object.values(state.channel));
+  const allServers = useSelector(state => state.server);
 
   useEffect(() => {
     dispatch(sessionActions.loadUserByIdThunk(userId));
@@ -25,33 +25,23 @@ const Servers = ({ userId }) => {
 
   const closeMenu = () => setShowMenu(false);
 
-  const checkImage = (urlString) => {
-    const endings = ["png", "jpg", "jpeg"];
-    const array = urlString.split(".");
-    if (endings.includes(array[array.length - 1])) {
-      return false;
-    }
-    return true;
-  }
-
   const handleEachServer = (server) => {
-    if (checkImage(server.image)) {
+    if (server?.image == null || server.image == '') {
       return (
         <div>
           <img className="server_image" src={noPicture} alt="noImage"></img>
         </div>
       )
     } else {
+
       return (
         <div>
-          <img className="server_image" src={server.image}
+          <img className="server_image" src={allServers[server.id]?.image}
             alt="link broken"
             onError={event => {
               event.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png"
               event.onerror = null
             }}></img>
-
-
         </div>
       )
     }
@@ -66,26 +56,13 @@ const Servers = ({ userId }) => {
     )
   }
 
-  const linktoChannel = (server) => {
-    let channelId = 0;
-
-    for (let i = 0; i < allChannels.length; i++) {
-      if (allChannels[i].server_id == server.id) {
-        channelId = allChannels[i].id;
-        break;
-      }
-    }
-    return (
-      <Link key={server?.id} to={`/servers/${server?.id}`}>
-        {handleEachServer(server)}
-      </Link>
-    )
-  }
 
   return (
     <div className="server_left">
       {user_servers?.map((server) => (
-        linktoChannel(server)
+        <Link key={server?.id} to={`/servers/${server?.id}`}>
+          {handleEachServer(server)}
+        </Link>
       ))}
       <div>
         <OpenModalButton

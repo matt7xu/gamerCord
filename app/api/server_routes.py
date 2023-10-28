@@ -106,9 +106,20 @@ def editServer(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        image_file = form.image.data
+
+        if image_file == None:
+            url_image = ""
+        else:
+            image_filename = get_unique_filename(image_file.filename)
+            upload = upload_file_to_s3(image_file, image_filename)
+            if "url" not in upload:
+             return {'errors': 'Failed to upload'}
+
+            url_image = upload["url"]
+            server.image=url_image
 
         server.name=form.data['name']
-        server.image=form.data['image']
         server.private=form.data['private']
 
         db.session.commit()
