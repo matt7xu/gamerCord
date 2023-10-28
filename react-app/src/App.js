@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import AllServers from "./components/Server/AllServers";
 import ServerDetail from "./components/Server/ServerDetail";
 import ChannelDetails from "./components/Channel/ChannelDetails";
+import Footer from "./components/Footer";
 import homePicture from "./home.png";
 import "./index.css";
 
@@ -53,6 +54,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer isLoaded={isLoaded} />
     </>
   );
 }

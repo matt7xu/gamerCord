@@ -1,0 +1,13 @@
+footer {
+    height: 100px;
+    margin-left: 8%;
+    margin-top: 15%;
+    border-top: 1px solid lightgray;
+}
+
+.f-icons{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+}

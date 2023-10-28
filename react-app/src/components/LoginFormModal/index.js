@@ -47,8 +47,8 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Welcome back!</h1>
-      <h2>We're so Excited to see you again!</h2>
+      <h1>Welcome!</h1>
+      <h2>We're so Excited to see you!</h2>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -58,7 +58,7 @@ function LoginFormModal() {
         <label>
           EMAIL
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
