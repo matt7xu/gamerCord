@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
 import './Navigation.css';
 import logoPicture from "./logo.png";
 
 function Navigation({ isLoaded }) {
 	const [showMenu, setShowMenu] = useState(false);
 	const ulRef = useRef();
+
+	const sessionUser = useSelector(state => state.session.user);
 
 	useEffect(() => {
 		if (!showMenu) return;
@@ -25,8 +25,6 @@ function Navigation({ isLoaded }) {
 		return () => document.removeEventListener("click", closeMenu);
 	}, [showMenu]);
 
-	const sessionUser = useSelector(state => state.session.user);
-	const closeMenu = () => setShowMenu(false);
 	return (
 		<div className="menu-top">
 			<div className="image_top">

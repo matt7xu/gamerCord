@@ -17,12 +17,10 @@
   grid-template-rows: repeat(8, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 50px;
-  /* gap: 10px; */
 }
 
 .server_card_img {
   max-width: 100%;
-  /* margin: 20px; */
   height: 70%;
   border-radius: 10px;
 }
@@ -123,7 +121,6 @@
 .errors {
   color: red;
   display: flex;
-  /* justify-content: center; */
   width: 100%;
   margin: 5px 0px;
   font-size: 12pt;

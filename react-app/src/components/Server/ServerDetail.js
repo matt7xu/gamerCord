@@ -68,7 +68,6 @@ const ServerDetail = () => {
           ))}
         </div>
       </div>
-      {/* <ChannelDetails /> */}
       <div className="serverWelcome">
         <h1>Welcome to</h1>
         <h1>{currentServer?.name}</h1>

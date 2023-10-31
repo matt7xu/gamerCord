@@ -7,7 +7,6 @@ function EditChannelModal({ channelId, channel_info }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(channel_info.name);
   const [private_server, setPrivate_server] = useState(channel_info.private);
-  // const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -27,11 +26,6 @@ function EditChannelModal({ channelId, channel_info }) {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* <ul>
-          {errors.length > 0 && errors.map(el => (
-            <div key={el} className="errors">{el}</div>
-          ))}
-        </ul> */}
         <div>
           <label>
             CHANNEL NAME

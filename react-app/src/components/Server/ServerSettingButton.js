@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import EditServerModal from "./EditServerModal";
 import DeleteServerModal from "./DeleteServerModal";
 import QuitServerModal from "./QuitServerModal";
-// import * as sessionActions from "../../store/session";
 import "./Server.css";
 
 function ServerSettingButton({ serverId, server_info, userId }) {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-
   const [showMenu, setShowMenu] = useState(false);
-
   const current_user = useSelector(state => state.session);
   const ulRef = useRef();
 

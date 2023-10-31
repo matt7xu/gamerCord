@@ -11,12 +11,9 @@ const AllServers = () => {
   const history = useHistory();
   const allServers = useSelector(state => state.server);
   const current_user = useSelector(state => state.session);
-  const userId = current_user?.user?.id
-
 
   useEffect(() => {
     dispatch(serverActions.loadAllServerThunk());
-    // dispatch(sessionActions.loadUserByIdThunk());
   }, [dispatch]);
 
 

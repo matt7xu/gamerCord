@@ -21,7 +21,6 @@ const ChannelDetails = () => {
   let serverId = currentChannel[0]?.server_id;
   const allServers = useSelector(state => state.server);
   const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
-  // const currentServer = useSelector(state => Object.values(state.server).filter(x => x.id == serverId));
   const currentServer = allServers[serverId]
 
 

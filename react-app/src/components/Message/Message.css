@@ -1,6 +1,5 @@
 .messageCont {
   margin-left: 35%;
-  /* margin-top: -5%; */
 }
 
 .messageForm {
@@ -17,7 +16,6 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  /* grid-row-gap: 5px; */
   grid-column-gap: 50px;
 }
 
@@ -37,16 +35,6 @@
   grid-area: 2 / 2 / 4 / 6;
 }
 
-/* .messageContReaction {
-  margin-left: 0%;
-  grid-area: 1 / 5 / 2 / 6;
-}
-
-.messageContSetting {
-  margin-left: -295%;
-  grid-area: 1 / 6 / 2 / 6;
-} */
-
 .emoji-icon {
   cursor: pointer;
   position: absolute;
@@ -62,7 +50,6 @@
 }
 
 .reactionbuttons {
-  /* width: 960px; */
   margin: 0 auto;
   margin-left: 20%;
   margin-top: -5%;

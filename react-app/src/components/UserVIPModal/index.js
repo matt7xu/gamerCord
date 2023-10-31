@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from "../../store/session.js";
@@ -11,11 +11,8 @@ const UserVIPModal = ({ userId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-  const current_user = useSelector(state => state.session);
-
   const handleClick = async (e) => {
     e.preventDefault();
-    // const data = await dispatch(sessionActions.updateUserVIPThunk(current_user?.user.id));
     const data = await dispatch(sessionActions.updateUserVIPThunk(userId));
     if (data) {
       closeModal();

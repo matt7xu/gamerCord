@@ -6,7 +6,6 @@ from app.api.helper import ALLOWED_EXTENSIONS
 
 class ServerForm(FlaskForm):
     name = StringField('Name of the server', validators=[DataRequired()])
-    # image = StringField('Image')
     image = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     private = BooleanField('private')
     submit = SubmitField("Create Server")

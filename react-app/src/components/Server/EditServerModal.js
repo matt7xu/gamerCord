@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
@@ -14,17 +14,12 @@ function EditServerModal({ serverId, server_info, userId }) {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  // useEffect(() => {
-  //   dispatch(sessionActions.loadUserByIdThunk(userId));
-  // }, [dispatch]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let errorMess = [];
     if (image !== '' && image != null) {
       const allowedExtensions = ['png', 'jpg', 'jpeg'];
-
       const fileExtension = image.name.split('.');
 
       if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
@@ -41,8 +36,6 @@ function EditServerModal({ serverId, server_info, userId }) {
       updatedServer.append("image", image);
 
       dispatch(serverActions.editServerThunk(serverId, updatedServer));
-
-      // dispatch(sessionActions.loadUserByIdThunk(userId));
       dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
 
       closeModal()

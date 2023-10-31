@@ -27,13 +27,10 @@ const Chat = ({ channelId }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    // open socket connection
-    // create websocket
     socket = io();
 
     socket.on("chat", () => {
       dispatch(messageActions.loadAllMessageThunk());
-      // setMessages(messages => [...messages, chat])
     })
 
     socket.on("emoj", () => {

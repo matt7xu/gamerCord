@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as serverActions from "../../store/server";
 import * as sessionActions from "../../store/session";
-import * as channelActions from "../../store/channel";
-
 
 function CreateServerModal() {
   const dispatch = useDispatch();
@@ -24,7 +22,6 @@ function CreateServerModal() {
 
     if (image !== '') {
       const allowedExtensions = ['png', 'jpg', 'jpeg'];
-
       const fileExtension = image.name.split('.');
 
       if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
@@ -42,13 +39,12 @@ function CreateServerModal() {
       formData.append("image", image);
 
       const data = await dispatch(serverActions.addServerThunk(formData));
-      
+
       dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
 
       let formDataServer = new FormData();
       formDataServer.append("name", "general");
       formDataServer.append("private", false);
-      // dispatch(channelActions.addChannelThunk(formDataServer, data.id));
 
       closeModal()
       history.push(`/servers/${data.id}`);
@@ -90,7 +86,6 @@ function CreateServerModal() {
               type="radio"
               value="False"
               onChange={(e) => setPrivate_server(false)}
-            // checked
             />
             False(default)
             <input
@@ -107,10 +102,13 @@ function CreateServerModal() {
             URL must end in .png, .jpg, or .jpeg
             <input
               type="file"
-              // value={image}
               accept="image/*"
               onChange={(e) => setImage(e.target.files[0])}
             />
+            {image.name ?
+              <label>Selected Image: {image.name} </label> :
+              <label>Selected Image: {image} </label>
+            }
           </label>
         </div>
         <p>By creating a server, you agree to gamerCord's Community Guidelines.</p>

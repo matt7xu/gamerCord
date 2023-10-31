@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as channelActions from "../../store/channel";
 
 function CreateChannelModal({ serverId }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { closeModal } = useModal();
   const [name, setName] = useState("");
   const [private_server, setPrivate_server] = useState(false);
-  // const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +19,6 @@ function CreateChannelModal({ serverId }) {
     dispatch(channelActions.addChannelThunk(formData, serverId));
 
     closeModal()
-    // history.push(`/servers/${serverId}`);
   }
 
   return (
@@ -34,11 +30,6 @@ function CreateChannelModal({ serverId }) {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* <ul>
-          {errors.length > 0 && errors.map(el => (
-            <div key={el} className="errors">{el}</div>
-          ))}
-        </ul> */}
         <div>
           <label>
             CHANNEL NAME

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
 import * as sessionActions from "../../store/session";
@@ -36,7 +36,6 @@ function LoginFormModal() {
     e.preventDefault();
     dispatch(sessionActions.login("PeterGriffin@aa.io", "password"))
     closeModal()
-    // history.push("/servers/@me");
   }
 
   const demoLogin2 = (e) => {

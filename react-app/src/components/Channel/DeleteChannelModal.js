@@ -9,8 +9,6 @@ function DeleteChannelModal({ channelId, serverId }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
-
-  const allChannels = useSelector(state => Object.values(state.channel).filter(x => x.server_id == serverId));
   const currentChannelMessages = useSelector(state => Object.values(state.message).filter(x => x.channel_id == channelId));
   const allReaction = useSelector(state => Object.values(state.reaction));
 

@@ -6,7 +6,6 @@ import * as messageActions from "../../store/message";
 function EditChannelModal({ message }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState(message.content);
-  // const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -24,11 +23,6 @@ function EditChannelModal({ message }) {
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* <ul>
-          {errors.length > 0 && errors.map(el => (
-            <div key={el} className="errors">{el}</div>
-          ))}
-        </ul> */}
         <div>
           <label>
             Message Content

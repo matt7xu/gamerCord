@@ -139,7 +139,6 @@ function SignupFormModal() {
 					URL must end in .png, .jpg, or .jpeg
 					<input
 						type="file"
-						// value={image}
 						accept="image/*"
 						onChange={(e) => setImage(e.target.files[0])}
 					/>
