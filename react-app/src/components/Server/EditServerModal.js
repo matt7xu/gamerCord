@@ -44,7 +44,12 @@ function EditServerModal({ serverId, server_info, userId }) {
       updatedServer.append("image", image);
 
       dispatch(serverActions.editServerThunk(serverId, updatedServer));
-      dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
+      if(image.name) {
+        dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image.name));
+      } else {
+        dispatch(sessionActions.editUserServerByIdThunk(userId, serverId, image));
+      }
+
 
       closeModal()
       history.push(`/servers/${serverId}`);

@@ -39,8 +39,9 @@ function CreateServerModal() {
       formData.append("image", image);
 
       const data = await dispatch(serverActions.addServerThunk(formData));
-
-      dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+      if(data) {
+        await dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
+      }
 
       let formDataServer = new FormData();
       formDataServer.append("name", "general");
