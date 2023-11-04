@@ -37,15 +37,13 @@ function CreateServerModal() {
       formData.append("name", name);
       formData.append("private", private_server);
       formData.append("image", image);
+      console.log('@@@@@@@image', image)
 
       const data = await dispatch(serverActions.addServerThunk(formData));
+      console.log('@@@@@@@data', data)
       if(data) {
         await dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
       }
-
-      let formDataServer = new FormData();
-      formDataServer.append("name", "general");
-      formDataServer.append("private", false);
 
       closeModal()
       history.push(`/servers/${data.id}`);
