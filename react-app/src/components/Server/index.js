@@ -27,7 +27,7 @@ const Servers = ({ userId }) => {
   const handleEachServer = (server) => {
     if (server?.image == null || server.image == '') {
       return (
-        <div>
+        <div className="tooltip">
           <img className="server_image" src={noPicture} alt="noImage"></img>
           <span className="tooltiptext">{server?.name}</span>
         </div>
