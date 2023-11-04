@@ -29,18 +29,20 @@ const Servers = ({ userId }) => {
       return (
         <div>
           <img className="server_image" src={noPicture} alt="noImage"></img>
+          <span className="tooltiptext">{server?.name}</span>
         </div>
       )
     } else {
 
       return (
-        <div>
+        <div className="tooltip">
           <img className="server_image" src={allServers[server.id]?.image}
             alt="link broken"
             onError={event => {
               event.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png"
               event.onerror = null
             }}></img>
+            <span className="tooltiptext">{server?.name}</span>
         </div>
       )
     }
