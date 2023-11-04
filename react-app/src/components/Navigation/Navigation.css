@@ -23,7 +23,8 @@ ul {
   grid-area: 1 / 1 / 2 / 8;
   height: 40%;
   width: 120%;
-  background-color: #4f198d;
+  /* background-color: #4f198d; */
+  background-image: linear-gradient( #181757, #6e198d);
 }
 
 .menu_top {
@@ -35,6 +36,8 @@ ul {
 }
 
 .image_top_image {
-  width: 70%;
+  width: 50%;
   height: 100%;
+  /* margin-top: 0.5%; */
+  margin-left: 22%;
 }
