@@ -72,7 +72,7 @@ def createServer():
             print("$$$$$$$image upload", image_filename)
             print("$$$$$$$image upload", upload)
             if "url" not in upload:
-                return {'errors': 'Failed to upload{upload}'}
+                return {'errors': 'Failed to upload'}
 
             url_image = upload["url"]
 
