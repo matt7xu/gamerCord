@@ -242,6 +242,7 @@ export default function reducer(state = initialState, action) {
 			return { user: null };
 		case UPDATE_VIP:
 			newState['user']['vip'] = !newState['user']['vip'];
+			newState[action.payload.id]['vip'] = !newState[action.payload.id]['vip']
 			return newState;
 		case LOAD_USER_BY_ID:
 			newState['user'] = action.payload;

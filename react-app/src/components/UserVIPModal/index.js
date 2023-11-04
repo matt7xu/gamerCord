@@ -16,7 +16,7 @@ const UserVIPModal = ({ userId }) => {
     const data = await dispatch(sessionActions.updateUserVIPThunk(userId));
     if (data) {
       closeModal();
-      history.push("/guild-discovery");
+      // history.push("/guild-discovery");
     }
   }
 
