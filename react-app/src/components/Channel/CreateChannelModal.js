@@ -7,7 +7,7 @@ function CreateChannelModal({ serverId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [name, setName] = useState("");
-  const [private_server, setPrivate_server] = useState(false);
+  const [private_server, setPrivate_server] = useState('False');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +21,10 @@ function CreateChannelModal({ serverId }) {
     closeModal()
   }
 
+  function onChangeValue(event) {
+    setPrivate_server(event.target.value);
+  }
+
   return (
     <div className="pageContainers">
       <div>
@@ -32,7 +36,7 @@ function CreateChannelModal({ serverId }) {
       >
         <div>
           <label>
-            CHANNEL NAME
+            Channel Name:
             <input
               type="text"
               value={name}
@@ -41,23 +45,10 @@ function CreateChannelModal({ serverId }) {
             />
           </label>
         </div>
-        <div>
-          <label>
-            Private Channel
-            <input
-              type="radio"
-              value="False"
-              onChange={(e) => setPrivate_server(false)}
-
-            />
-            False(default)
-            <input
-              type="radio"
-              value="True"
-              onChange={(e) => setPrivate_server(true)}
-            />
-            True
-          </label>
+        <div onChange={onChangeValue}>
+          Private:
+          <input type="radio" value="True" name="private_server" checked={private_server === "True"} /> True
+          <input type="radio" value="False" name="private_server" checked={private_server === "False"} /> False(default)
         </div>
         <p>Only selected members and roles will be able to view this channel.</p>
         <button type="submit">Create</button>

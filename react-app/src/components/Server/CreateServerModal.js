@@ -10,7 +10,7 @@ function CreateServerModal() {
   const history = useHistory();
   const { closeModal } = useModal();
   const [name, setName] = useState("");
-  const [private_server, setPrivate_server] = useState(false);
+  const [private_server, setPrivate_server] = useState('False');
   const [image, setImage] = useState('');
   const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -37,11 +37,9 @@ function CreateServerModal() {
       formData.append("name", name);
       formData.append("private", private_server);
       formData.append("image", image);
-      console.log('@@@@@@@image', image)
 
       const data = await dispatch(serverActions.addServerThunk(formData));
-      console.log('@@@@@@@data', data)
-      if(data) {
+      if (data) {
         await dispatch(sessionActions.userJoinServerThunk(data.id, data.user_id));
       }
 
@@ -49,6 +47,10 @@ function CreateServerModal() {
       history.push(`/servers/${data.id}`);
     }
     setImageLoading(false);
+  }
+
+  function onChangeValue(event) {
+    setPrivate_server(event.target.value);
   }
 
   return (
@@ -69,7 +71,7 @@ function CreateServerModal() {
         {(imageLoading) && <p>Image Uploading...</p>}
         <div>
           <label>
-            Name
+            Name:
             <input
               type="text"
               value={name}
@@ -78,23 +80,12 @@ function CreateServerModal() {
             />
           </label>
         </div>
-        <div>
-          <label>
-            private
-            <input
-              type="radio"
-              value="False"
-              onChange={(e) => setPrivate_server(false)}
-            />
-            False(default)
-            <input
-              type="radio"
-              value="True"
-              onChange={(e) => setPrivate_server(true)}
-            />
-            True
-          </label>
+        <div onChange={onChangeValue}>
+          Private:
+          <input type="radio" value="True" name="private_server" checked={private_server === "True"} /> True
+          <input type="radio" value="False" name="private_server" checked={private_server === "False"} /> False(default)
         </div>
+        <div className="mymargin"></div>
         <div>
           <label>
             Server Image (optional)

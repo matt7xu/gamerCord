@@ -20,7 +20,7 @@ function EditChannelModal({ channelId, channel_info }) {
   };
 
   return (
-    <div>
+    <div className="pageContainers">
       <h1>#{channel_info?.name} TEXT CHANNELS</h1>
       <h2>Overview</h2>
       <form onSubmit={handleSubmit}

@@ -19,7 +19,7 @@ function DeleteMessageModal({ messageId }) {
   };
 
   return (
-    <div>
+    <div className="pageContainers">
       <h1>Confirm Delete</h1>
       <h5>Are you sure you want to remove this message?</h5>
       <button className="" onClick={confirmButtonHandler}>Yes (Delete Message)</button>

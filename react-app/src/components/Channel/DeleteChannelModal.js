@@ -30,7 +30,7 @@ function DeleteChannelModal({ channelId, serverId }) {
   };
 
   return (
-    <div>
+    <div className="pageContainers">
       <h1>Confirm Delete</h1>
       <h5>Are you sure you want to remove this channel?</h5>
       <button className="" onClick={confirmButtonHandler}>Yes (Delete Channel)</button>

@@ -57,7 +57,7 @@ function EditServerModal({ serverId, server_info, userId }) {
   };
 
   return (
-    <div>
+    <div className="pageContainers">
       <h1>Server Profiles</h1>
       <h5>Show who you are with different profiles for each of your servers.</h5>
       <form onSubmit={handleSubmit}

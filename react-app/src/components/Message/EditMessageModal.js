@@ -18,7 +18,7 @@ function EditChannelModal({ message }) {
   };
 
   return (
-    <div>
+    <div className="pageContainers">
       <h1>Message</h1>
       <form onSubmit={handleSubmit}
         encType="multipart/form-data"

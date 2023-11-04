@@ -89,7 +89,7 @@ function SignupFormModal() {
 	const closeMenu = () => setShowMenu(false);
 
 	return (
-		<>
+		<div className="pageContainers">
 			<h1>Create an account</h1>
 			<form onSubmit={handleSubmit} encType="multipart/form-data">
 				<ul>
@@ -154,7 +154,7 @@ function SignupFormModal() {
 				</div>
 
 			</form>
-		</>
+		</div>
 	);
 }
 
