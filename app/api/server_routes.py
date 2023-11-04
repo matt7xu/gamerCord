@@ -68,9 +68,6 @@ def createServer():
         else:
             image_filename = get_unique_filename(image_file.filename)
             upload = upload_file_to_s3(image_file, image_filename)
-            print("$$$$$$$image image_file", image_file)
-            print("$$$$$$$image upload", image_filename)
-            print("$$$$$$$image upload", upload)
             if "url" not in upload:
                 return {'errors': 'Failed to upload'}
 
