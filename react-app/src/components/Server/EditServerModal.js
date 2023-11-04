@@ -18,12 +18,20 @@ function EditServerModal({ serverId, server_info, userId }) {
     e.preventDefault();
 
     let errorMess = [];
-    if (image !== '' && image != null) {
+    if (image !== '') {
       const allowedExtensions = ['png', 'jpg', 'jpeg'];
-      const fileExtension = image.name.split('.');
+      if(image.name) {
+        const fileExtension = image.name.split('.');
 
-      if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
-        errorMess.push('Image file must have a valid extension: .png, .jpg, .jpeg')
+        if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
+          errorMess.push('Image file must have a valid extension: .png, .jpg, .jpeg')
+        }
+      } else {
+        const fileExtension = image.split('.');
+
+        if (!allowedExtensions.includes(fileExtension[fileExtension.length - 1])) {
+          errorMess.push('Image file must have a valid extension: .png, .jpg, .jpeg')
+        }
       }
     }
 
