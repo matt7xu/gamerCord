@@ -17,6 +17,7 @@
   grid-template-rows: repeat(8, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 50px;
+  margin-left: 25%;
 }
 
 .server_card_img {
