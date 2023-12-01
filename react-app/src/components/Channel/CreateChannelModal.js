@@ -45,11 +45,11 @@ function CreateChannelModal({ serverId }) {
             />
           </label>
         </div>
-        <div onChange={onChangeValue}>
+        {/* <div onChange={onChangeValue}>
           Private:
           <input type="radio" value="True" name="private_server" checked={private_server === "True"} /> True
           <input type="radio" value="False" name="private_server" checked={private_server === "False"} /> False(default)
-        </div>
+        </div> */}
         <p>Only selected members and roles will be able to view this channel.</p>
         <button type="submit">Create</button>
       </form>

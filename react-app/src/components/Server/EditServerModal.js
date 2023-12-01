@@ -70,7 +70,7 @@ function EditServerModal({ serverId, server_info, userId }) {
         </ul>
         <div>
           <label>
-            Name
+            Name:
             <input
               type="text"
               value={name}
@@ -79,7 +79,7 @@ function EditServerModal({ serverId, server_info, userId }) {
             />
           </label>
         </div>
-        <div>
+        {/* <div>
           <label>
             private
             <input
@@ -95,7 +95,7 @@ function EditServerModal({ serverId, server_info, userId }) {
             />
             True
           </label>
-        </div>
+        </div> */}
         <label>
           Server Image (optional)
           URL must end in .png, .jpg, or .jpeg

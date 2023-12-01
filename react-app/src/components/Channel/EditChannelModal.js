@@ -28,7 +28,7 @@ function EditChannelModal({ channelId, channel_info }) {
       >
         <div>
           <label>
-            CHANNEL NAME
+            CHANNEL NAME:
             <input
               type="text"
               value={name}
@@ -37,7 +37,7 @@ function EditChannelModal({ channelId, channel_info }) {
             />
           </label>
         </div>
-        <div>
+        {/* <div>
           <label>
             private
             <input
@@ -54,7 +54,7 @@ function EditChannelModal({ channelId, channel_info }) {
             />
             True
           </label>
-        </div>
+        </div> */}
         <button type="submit">Update</button>
       </form>
     </div>
