@@ -64,8 +64,10 @@ The backend of GamerCord is built using Python and Flask with a PostgreSQL datab
 - Visual Studio Code
 
 ## Screenshots of GamerCord
-<img width="1000" alt="gsmercordp2" src="https://github.com/matt7xu/gamerCord/assets/97821049/d7984577-432e-464c-9558-2fc7d0d3bc02">
-<img width="1000" alt="gamercordp1" src="https://github.com/matt7xu/gamerCord/assets/97821049/4f090f7f-3881-4d32-87f6-5044c1493310">
-<img width="1000" alt="gamercordp3" src="https://github.com/matt7xu/gamerCord/assets/97821049/178c7de8-8f91-4de4-be5c-a2bb062539a8">
+<img width="1273" alt="gamercord1" src="https://github.com/matt7xu/gamerCord/assets/97821049/8ba41992-fe24-4e02-be00-e5b0add0dc37">
+<img width="1271" alt="gamercord2" src="https://github.com/matt7xu/gamerCord/assets/97821049/823c9bbf-0303-4201-96a0-5e149b191683">
+<img width="1271" alt="gamercord3" src="https://github.com/matt7xu/gamerCord/assets/97821049/6a58e487-2fae-4abc-b236-a6f432b56ba1">
+
+
 
 
